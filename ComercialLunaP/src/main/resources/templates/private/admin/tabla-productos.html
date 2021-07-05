@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sample title - Ecommerce admin dashboard template</title>
+
+    <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <link href="../../css/bootstrap1.css?v=1.1" rel="stylesheet" type="text/css" />
+
+    <!-- custom style -->
+    <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
+    <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+
+    <!-- iconfont -->
+    <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+
+</head>
+
+<body>
+
+    <b class="screen-overlay"></b>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index-admin.html" class="brand-wrap">
+                <img src="../../images/logoE.png" class="logo" alt="Logo de la empresa">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <!-- aside-top.// -->
+
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="index-admin.html"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Inicio</span>
+                    </a>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="listar-categorias.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Categorias</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="agregar-categoria.html"> Agregar Categorias</a>
+                        <a href="agregar-subcategorias.html">Sub Categorias</a>
+                        <a href="listar-categorias.html">Listar Categorias</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="listar-productos.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="listar-productos.html">Lista de Productos</a>
+                        <a href="tabla-productos.html">Tabla de Productos</a>
+                        <a href="agregar-producto.html">Agregar Productos</a>
+                        <a href="agregar-categoria.html">Categorias</a>
+                        <a href="agregar-subcategorias.html">Sub-Categorias</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="listar-pedidos1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Pedidos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="listar-pedidos1.html">Lista de Pedidos</a>
+                        <a href="listar-pedidos2.html">Filtar Lista de Pedidos</a>
+                        <a href="pedidos-detalles.html">Pedidos Detalle</a>
+                    </div>
+                </li>
+                <!-- 
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Agregar Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-form-product-1.html">Agregar Producto Metodo 1</a>
+                        <a href="page-form-product-2.html">Agregar Producto Metodo 2 </a>
+                        <a href="page-form-product-3.html">Agregar Producto Metodo 3</a>
+                        <a href="page-form-product-4.html">Agregar Producto Metodo 4</a>
+                    </div>
+                </li>
+                -->
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="transacciones1.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transacciones</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="transacciones1.html">Transacciones</a>
+                        <a href="transacciones2.html">Transacciones Detalles</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Cuenta</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="login.html">Iniciar Sesion</a>
+                        <a href="registrar.html">Registrar - Empleados</a>
+                        <a href="page-error-404.html">Error 404</a>
+                    </div>
+                </li>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="listar-marcas.html"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Marcas</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="listar-marcas.html">Lista de Marca</a>
+                        <a href="agregar-marca.html">Agregar Marca</a>
+                    </div>
+                </li>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="#content-header"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Estadisticas</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside">
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Configuraciones</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="editar-perfil.html">Configurar Perfil</a>
+                        <a href="editar-sitio-web.html">Configurar Sitio Web</a>
+                    </div>
+                </li>
+                <!--
+                <li class="menu-item">
+                    <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Starter page </span>
+                    </a>
+                </li>
+                -->
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+                    </div>
+                    <datalist id="search_terms">
+                  <option value="Products">
+                  <option value="New orders">
+                  <option value="Apple iphone">
+                  <option value="Ahmed Hassan">
+                </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> English </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Mi Perfil</a>
+                            <a class="dropdown-item" href="#">Configurar</a>
+                            <a class="dropdown-item text-danger" href="#">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <section class="content-main">
+
+            <div class="content-header">
+                <h2 class="content-title">Tabla de Productos </h2>
+                <div>
+                    <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Agregar Nuevo</a>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-lg-4 col-md-6 me-auto">
+                            <input type="text" placeholder="Search..." class="form-control">
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                            <select class="form-select">
+                            <option>Todas las Categorias</option>
+                            <option>Electronics</option>
+                            <option>Clothes</option>
+                            <option>Automobile</option>
+                        </select>
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                            <select class="form-select">
+                            <option>Estado</option>
+                            <option>Active</option>
+                            <option>Disabled</option>
+                            <option>Show all</option>
+                        </select>
+                        </div>
+                    </div>
+                </header>
+                <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Codigo</th>
+                                    <th>Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>PrecioContado</th>
+                                    <th>PrecioDiferido</th>
+                                    <th>Color</th>
+                                    <th>Estado</th>
+                                    <th>Categoria</th>
+                                    <th>Subcategoria</th>
+                                    <th>Marca</th>
+                                    <th class="text-end">Detalle</th>
+                                    <th class="text-end">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each= "productosL: ${listarPro}">
+                                    <td th:text="${productosL.id}"></td>
+                                    <td th:text="${productosL.codigo}"></td>
+                                    <td th:text="${productosL.nombre}"></td>
+                                    <td th:text="${productosL.descripcion}"></td>
+                                    <td th:text="${productosL.precioC}"></td>
+                                    <td th:text="${productosL.precioD}"></td>
+                                    <td th:text="${productosL.color}"></td>
+                                    <td class="text-end" >
+	                                    	<span th:if="${productosL.estado} eq 'I'" class="badge rounded-pill alert-danger">Inactivo</span>
+    										<span th:if="${productosL.estado} eq 'A'" class="badge rounded-pill alert-success">Activo</span>
+                                    	</td>
+                                    <td th:text="${productosL.subcategoria.categoria.nombre}"></td>
+                                    <td th:text="${productosL.subcategoria.nombre}"></td>
+                                    <td th:text="${productosL.marca.nombre}"></td>
+                                    <td class="text-end">
+                                        <a th:href="@{/home-admin/listarDetallesPro(id=${productosL.id})}" class="btn btn-success">Detalle</a>
+                                    </td>
+                                    <td class="text-end">
+                                        <a th:href="@{/home-admin/deletePro(id=${productosL.id})}" class="btn btn-danger">Eliminar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table-responsive end // -->
+
+                    <nav class="float-end mt-3" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+                <!-- card-body end// -->
+            </div>
+            <!-- card end// -->
+
+
+        </section>
+        <!-- content-main end// -->
+    </main>
+
+    <script>
+        if (localStorage.getItem("darkmode")) {
+            var body_el = document.body;
+            body_el.className += 'dark';
+        }
+    </script>
+
+    <script src="../../js/jquery-3.5.0.min.js"></script>
+    <script src="../../js/bootstrap1.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../../js/script1.js?v=1.0"></script>
+
+</body>
+
+</html>

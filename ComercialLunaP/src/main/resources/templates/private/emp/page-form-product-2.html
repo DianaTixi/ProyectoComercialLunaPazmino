@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sample title - Ecommerce admin dashboard template</title>
+
+    <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <link href="../../css/bootstrap1.css?v=1.1" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+
+    <!-- custom style -->
+    <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
+    <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <b class="screen-overlay"></b>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="page-index-1.html" class="brand-wrap">
+                <img src="../../images/logo.png" height="46" class="logo" alt="Ecommerce dashboard template">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <!-- aside-top.// -->
+
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="page-index-1.html"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Inicio</span>
+                    </a>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-products-list.html">Ver Lista de Productos</a>
+                        <a href="page-products-table.html">Ver Tabla de Productos</a>
+                        <a href="page-products-grid.html">Cuadricula de Productos</a>
+                        <a href="page-categories.html">Categorias</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Agregar Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-form-product-1.html">Agregar Producto 1</a>
+                        <a href="page-form-product-2.html">Agregar Producto 2</a>
+                        <a href="page-form-product-3.html">Agregar Producto 3</a>
+                        <a href="page-form-product-4.html">Agregar Producto 4</a>
+                    </div>
+                </li>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Marcas</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-brands.html">Lista de Marca</a>
+                        <a href="page-brands.html">Agregar Marca</a>
+                    </div>
+                </li>
+                <ul class="menu-aside">
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                            <span class="text">Configuraciones</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-settings-1.html">Configurar Perfil</a>
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+                <br>
+                <br>
+        </nav>
+    </aside>
+
+    <main class="main-wrap">
+
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+                    </div>
+                    <datalist id="search_terms">
+          <option value="Products">
+          <option value="New orders">
+          <option value="Apple iphone">
+          <option value="Ahmed Hassan">
+        </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> English </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Mi Perfil</a>
+                            <a class="dropdown-item" href="#">Configurar</a>
+                            <a class="dropdown-item text-danger" href="#">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <section class="content-main" style="max-width:920px">
+
+            <div class="content-header">
+                <h2 class="content-title">Agregar Producto</h2>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>1. Informacion General</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <label class="form-label">Titulo</label>
+                                <input type="text" placeholder="Type here" class="form-control">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Descripcion</label>
+                                <textarea placeholder="Type here" class="form-control" rows="4"></textarea>
+                            </div>
+                            <div class="mb-4" style="max-width:250px;">
+                                <label class="form-label">Nombre de la Marca/label>
+                                <select class="form-select">
+                            <option> Adidas </option>
+                            <option> Nike </option>
+                            <option> Puma </option>
+                        </select>
+                            </div>
+                        </div>
+                        <!-- col.// -->
+                    </div>
+                    <!-- row.// -->
+
+                    <hr class="mb-4 mt-0">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>2. Precio</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-4" style="max-width:250px;">
+                                <label class="form-label">Cost in USD</label>
+                                <input type="text" placeholder="00.0" class="form-control">
+                            </div>
+                        </div>
+                        <!-- col.// -->
+                    </div>
+                    <!-- row.// -->
+
+                    <hr class="mb-4 mt-0">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>3. Categoria</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" checked="" name="mycategory" type="radio">
+                            <span class="form-check-label">  Clothes </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Electronics </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Sports </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Automobiles </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Home interior </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Smartphones </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Books </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Kids item </span>
+                        </label>
+                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                            <input class="form-check-input" name="mycategory" type="radio">
+                            <span class="form-check-label">  Others </span>
+                        </label>
+                            </div>
+                        </div>
+                        <!-- col.// -->
+                    </div>
+                    <!-- row.// -->
+
+                    <hr class="mb-4 mt-0">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>4. Media</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <label class="form-label">Imagen</label>
+                                <input class="form-control" type="file">
+                            </div>
+                        </div>
+                        <!-- col.// -->
+                    </div>
+                    <!-- .row end// -->
+                    <hr class="mb-4 mt-0">
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-light">Guardar como Borrador</button>
+                        <button type="button" class="btn btn-primary">Guardar y Activar </button>
+                    </div>
+                </div>
+            </div>
+            <!-- card end// -->
+
+
+        </section>
+        <!-- content-main end// -->
+    </main>
+
+
+    <script>
+        if (localStorage.getItem("darkmode")) {
+            var body_el = document.body;
+            body_el.className += 'dark';
+        }
+    </script>
+
+    <script src="../../js/jquery-3.5.0.min.js"></script>
+    <script src="../../js/bootstrap1.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../../js/script1.js?v=1.0"></script>
+
+</body>
+
+</html>

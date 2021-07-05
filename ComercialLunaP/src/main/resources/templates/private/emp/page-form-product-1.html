@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sample title - Ecommerce admin dashboard template</title>
+
+    <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <link href="../../css/bootstrap1.css?v=1.1" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+
+    <!-- custom style -->
+    <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
+    <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <b class="screen-overlay"></b>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="page-index-1.html" class="brand-wrap">
+                <img src="../../images/logo.png" height="46" class="logo" alt="Ecommerce dashboard template">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <!-- aside-top.// -->
+
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="page-index-1.html"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Inicio</span>
+                    </a>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-products-list.html">Ver Lista de Productos</a>
+                        <a href="page-products-table.html">Ver Tabla de Productos</a>
+                        <a href="page-products-grid.html">Cuadricula de Productos</a>
+                        <a href="page-categories.html">Categorias</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Agregar Productos</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-form-product-1.html">Agregar Producto 1</a>
+                        <a href="page-form-product-2.html">Agregar Producto 2</a>
+                        <a href="page-form-product-3.html">Agregar Producto 3</a>
+                        <a href="page-form-product-4.html">Agregar Producto 4</a>
+                    </div>
+                </li>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Marcas</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-brands.html">Lista de Marca</a>
+                        <a href="page-brands.html">Agregar Marca</a>
+                    </div>
+                </li>
+                <ul class="menu-aside">
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                            <span class="text">Configuraciones</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-settings-1.html">Configurar Perfil</a>
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+                <br>
+                <br>
+        </nav>
+    </aside>
+
+    <main class="main-wrap">
+
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+                    </div>
+                    <datalist id="search_terms">
+			  <option value="Products">
+			  <option value="New orders">
+			  <option value="Apple iphone">
+			  <option value="Ahmed Hassan">
+			</datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> English </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Mi Perfil</a>
+                            <a class="dropdown-item" href="#">Configuracion</a>
+                            <a class="dropdown-item text-danger" href="#">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <section class="content-main" style="max-width: 720px">
+
+            <div class="content-header">
+                <h2 class="content-title">Crear Producto </h2>
+                <div>
+                    <a href="#" class="btn btn-outline-danger"> &times; Descartar</a>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Titulo Producto</label>
+                            <input type="text" placeholder="Type here" class="form-control" id="product_name">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Descripcion</label>
+                            <textarea placeholder="Type here" class="form-control" rows="4"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Imagen</label>
+                            <input class="form-control" type="file">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Etiqueta</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="row gx-2">
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label">Categoria</label>
+                                <select class="form-select">
+					    	<option> Automobiles </option>
+					    	<option> Home items </option>
+					    	<option> Electronics </option>
+					    	<option> Smartphones </option>
+					    	<option> Sport items </option>
+					    	<option> Baby and Tous </option>
+					    </select>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label">Sub-Categoria</label>
+                                <select class="form-select">
+					    	<option> Nissan </option>
+					    	<option> Honda </option>
+					    	<option> Mercedes </option>
+					    	<option> Chevrolet </option>
+					    </select>
+                            </div>
+                        </div>
+                        <!-- row.// -->
+
+
+                        <div class="mb-4">
+                            <label class="form-label">Precio</label>
+                            <div class="row gx-2">
+                                <div class="col-4">
+                                    <input placeholder="Type" type="text" class="form-control">
+                                </div>
+                                <div class="col-2">
+                                    <select class="form-select">
+						    	<option> USD </option>
+						    	<option> EUR </option>
+						    </select>
+                                </div>
+                            </div>
+                            <!-- row.// -->
+                        </div>
+
+                        <label class="form-check mb-4">
+				  <input class="form-check-input" type="checkbox" value="">
+				  <span class="form-check-label">  Publicar en el Sitio Web</span>
+				</label>
+
+                        <button class="btn btn-primary">Agregar</button>
+
+                    </form>
+                </div>
+            </div>
+            <!-- card end// -->
+
+        </section>
+        <!-- content-main end// -->
+    </main>
+
+    <script>
+        if (localStorage.getItem("darkmode")) {
+            var body_el = document.body;
+            body_el.className += 'dark';
+        }
+    </script>
+
+    <script src="../../js/jquery-3.5.0.min.js"></script>
+    <script src="../../js/bootstrap1.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../../js/script1.js?v=1.0"></script>
+
+</body>
+
+</html>

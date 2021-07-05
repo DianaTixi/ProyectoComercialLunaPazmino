@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/* ==== BASE STYLES ====*/
+
+
+/* ==================== GLOBAL STYLES ======================= */
+
+@import url("https://rsms.me/inter/inter.css");
+html {
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+}
+
+.contenido1 {
+    width: 60%;
+    margin-left: 4px;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    float: left;
+    border: 2px;
+    text-align: justify;
+}
+
+.contenido2 {
+    width: 36%;
+    margin-left: 4px;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    float: left;
+    border: 2px;
+    text-align: justify;
+}
+
+h1 {
+    color: #f35f24;
+    margin-left: 20%;
+    margin-right: 10px;
+    font: oblique bold cursive;
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+
+h4 {
+    margin-left: 20%;
+    margin-right: 10px;
+    font: oblique bold 120% cursive;
+}
+
+button {
+    margin-left: 20%;
+    margin-right: 10px;
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    background-color: #db6027;
+    border-radius: 5cm;
+}
+
+
+}
