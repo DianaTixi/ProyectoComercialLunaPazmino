@@ -58,104 +58,82 @@
 
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="page-index-1.html"> <i class="icon material-icons md-home"></i>
-                        <span class="text">Dashboard</span>
+                <li class="menu-item active">
+                    <a class="menu-link" href="index-admin.html"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Inicio</span>
                     </a>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
+                    <a class="menu-link" href="listar-categorias.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Categorias</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-products-list.html">Product list view</a>
-                        <a href="page-products-table.html">Product table view</a>
-                        <a href="page-products-grid.html">Product grid</a>
-                        <a href="page-products-grid-2.html">Product grid 2</a>
-                        <a href="page-categories.html">Categories</a>
+                        <a th:href="@{/home-admin/agregarCategorias}"> Agregar Categorias</a>
+                        <a th:href="@{/home-admin/agregarSubCategorias}">Sub Categorias</a>
+                        <a th:href="@{/home-admin/listarCategorias}">Listar Categorias</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
+                    <a class="menu-link" href="listar-productos.html"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Productos</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-orders-1.html">Order list 1</a>
-                        <a href="page-orders-2.html">Order list 2</a>
-                        <a href="page-orders-detail.html">Order detail</a>
+                    	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
+                        <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
+                        <a th:href="@{/home-admin/listarProductos}">Tabla de Productos</a>
+                        
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
-                        <span class="text">Sellers</span>
+                    <a class="menu-link" href="listar-pedidos1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Pedidos</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-sellers-cards.html">Sellers cards</a>
-                        <a href="page-sellers-list.html">Sellers list</a>
-                        <a href="page-seller-detail.html">Seller profile</a>
+                        <a th:href="@{/home-admin/listarPedidos}">Lista de Pedidos</a>
+                        <a href="listar-pedidos2.html">Buscar Pedidos</a>
+                        <a th:href="@{/home-admin/listarDetalles}">Pedidos Detalle</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-form-product-1.html">Add product 1</a>
-                        <a href="page-form-product-2.html">Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-transactions-A.html"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-transactions-A.html">Transaction 1</a>
-                        <a href="page-transactions-B.html">Transaction 2</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu active">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Account</span>
+                        <span class="text">Cuenta</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-account-login.html">User login</a>
-                        <a href="page-account-register.html">User registration</a>
+                        <a th:href="@{/home-admin/registrarEmpleados}">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/listarEmpleados}">Listar Empleados</a>
+                        <a th:href="@{/home-admin/listarClientes}">Listar Clientes</a>
                         <a href="page-error-404.html">Error 404</a>
                     </div>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="listar-marcas.html"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Marcas</span>
                     </a>
+                    <div class="submenu">
+                        <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
+                    </div>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
-                    </a>
                 </li>
             </ul>
             <hr>
             <ul class="menu-aside">
                 <li class="menu-item has-submenu">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
+                        <span class="text">Configuraciones</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-settings-1.html">Setting sample 1</a>
-                        <a href="page-settings-2.html">Setting sample 2</a>
+                        <a href="editar-perfil.html">Configurar Perfil</a>
+                        <a href="editar-sitio-web.html">Configurar Sitio Web</a>
                     </div>
                 </li>
+                <!--
                 <li class="menu-item">
                     <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text"> Starter page </span>
                     </a>
                 </li>
+                -->
             </ul>
             <br>
             <br>

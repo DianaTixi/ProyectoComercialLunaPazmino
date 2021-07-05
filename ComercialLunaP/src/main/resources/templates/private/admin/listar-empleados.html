@@ -47,9 +47,9 @@
                         <span class="text">Categorias</span>
                     </a>
                     <div class="submenu">
-                        <a href="agregar-categoria.html"> Agregar Categorias</a>
-                        <a href="agregar-subcategorias.html">Sub Categorias</a>
-                        <a href="listar-categorias.html">Listar Categorias</a>
+                        <a th:href="@{/home-admin/agregarCategorias}"> Agregar Categorias</a>
+                        <a th:href="@{/home-admin/agregarSubCategorias}">Sub Categorias</a>
+                        <a th:href="@{/home-admin/listarCategorias}">Listar Categorias</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -57,11 +57,10 @@
                         <span class="text">Productos</span>
                     </a>
                     <div class="submenu">
-                        <a href="listar-productos.html">Lista de Productos</a>
-                        <a href="tabla-productos.html">Tabla de Productos</a>
-                        <a href="agregar-producto.html">Agregar Productos</a>
-                        <a href="agregar-categoria.html">Categorias</a>
-                        <a href="agregar-subcategorias.html">Sub-Categorias</a>
+                    	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
+                        <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
+                        <a th:href="@{/home-admin/listarProductos}">Tabla de Productos</a>
+                        
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -69,31 +68,9 @@
                         <span class="text">Pedidos</span>
                     </a>
                     <div class="submenu">
-                        <a href="listar-pedidos1.html">Lista de Pedidos</a>
-                        <a href="listar-pedidos2.html">Filtar Lista de Pedidos</a>
-                        <a href="pedidos-detalles.html">Pedidos Detalle</a>
-                    </div>
-                </li>
-                <!-- 
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Agregar Productos</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-form-product-1.html">Agregar Producto Metodo 1</a>
-                        <a href="page-form-product-2.html">Agregar Producto Metodo 2 </a>
-                        <a href="page-form-product-3.html">Agregar Producto Metodo 3</a>
-                        <a href="page-form-product-4.html">Agregar Producto Metodo 4</a>
-                    </div>
-                </li>
-                -->
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="transacciones1.html"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transacciones</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="transacciones1.html">Transacciones</a>
-                        <a href="transacciones2.html">Transacciones Detalles</a>
+                        <a th:href="@{/home-admin/listarPedidos}">Lista de Pedidos</a>
+                        <a href="listar-pedidos2.html">Buscar Pedidos</a>
+                        <a th:href="@{/home-admin/listarDetalles}">Pedidos Detalle</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -101,8 +78,9 @@
                         <span class="text">Cuenta</span>
                     </a>
                     <div class="submenu">
-                        <a href="login.html">Iniciar Sesion</a>
-                        <a href="registrar.html">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/registrarEmpleados}">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/listarEmpleados}">Listar Empleados</a>
+                        <a th:href="@{/home-admin/listarClientes}">Listar Clientes</a>
                         <a href="page-error-404.html">Error 404</a>
                     </div>
                 </li>
@@ -112,15 +90,9 @@
                         <span class="text">Marcas</span>
                     </a>
                     <div class="submenu">
-                        <a href="listar-marcas.html">Lista de Marca</a>
-                        <a href="agregar-marca.html">Agregar Marca</a>
+                        <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
                     </div>
                 </li>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="#content-header"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Estadisticas</span>
-                    </a>
                 </li>
             </ul>
             <hr>
