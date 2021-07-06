@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -173,8 +177,8 @@ public class AdminController {
 		serSubCategorias.eliminar(id_sub);
 		return "private/admin/index-admin";
 	}
-	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO //////////////////////////////
 	
+	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO //////////////////////////////
 	@RequestMapping(value = "/agregarProductos", method=RequestMethod.GET)
 	public String agregarProductos(Model model) {
 		List<Marcas> listaM = serMarcas.listar();
@@ -191,6 +195,8 @@ public class AdminController {
 	public String listarProductos(Model model) {
 		List<Productos> listaPro = serProductos.listar();
 		model.addAttribute("listarPro", listaPro);
+		List<Categorias> listaC = serCategorias.listar();
+		model.addAttribute("listarCat", listaC);
 		return "private/admin/tabla-productos";
 	}
 	
@@ -251,12 +257,37 @@ public class AdminController {
 		return "private/admin/index-admin";
 	}
 	
-	//Metodo para eliminar categorias
+	//Metodo para eliminar - desactivar Productos
 	@GetMapping("/deletePro")
 	public String eliminarPro(@RequestParam("id") int id_pro) {
 		serProductos.eliminar(id_pro);
 		System.out.println("Borrar el Producto: " + id_pro);
 		return "private/admin/index-admin";
+	}
+	
+	//Lista de Productos Bloqueados
+	@RequestMapping(value = "/productosBloqueados", method=RequestMethod.GET)
+	public String listarProInactivos(Model model) {
+		List<Productos> listaInactivos = serProductos.listarProductosInactivos('I');
+		model.addAttribute("listarI", listaInactivos);
+		return "private/admin/productos-bloqueados";	
+	}
+	//Activar Productos
+	@GetMapping("/activarProducto")
+	public String activarProducto(@RequestParam("id") int id_pro) {
+		serProductos.activarProducto(id_pro);
+		return "private/admin/index-admin";
+	}
+	
+	//BuscarProductosPor Nombre
+	@GetMapping("/searchPro")
+	public String buscarProducto(@ModelAttribute("search") Productos productos , Model model) {
+		System.out.println("Buscando por " + productos);
+		ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("codigo", ExampleMatcher.GenericPropertyMatchers.contains());
+		Example<Productos> example = Example.of(productos);
+		List<Productos> listarPro = serProductos.buscarByExample(example);
+		model.addAttribute("productosL", listarPro);
+		return "private/admin/buscar-productos" ;	
 	}
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO - Imagenes //////////////////////////////
@@ -282,6 +313,7 @@ public class AdminController {
 	@GetMapping("/verDetalle")
 	public String detalleP(@RequestParam("id") int id_pedidoC, Model model) {
 		List<PedidosDetalles> detalleP = serPedidoD.buscarPedidoC_Id(id_pedidoC);
+		
 		model.addAttribute("listarDetalleC", detalleP);
 		return "private/admin/pedidos-detalles";
 	}
@@ -293,8 +325,6 @@ public class AdminController {
 		return "private/admin/listar-pedidosD";
 	}
 	
-
-		
 /////////////////// CONTROLADOR DE LA ENTIDAD DE MARCAS //////////////////////////////
 	//Redireccionamiento Seccion Marcas
 	
@@ -315,7 +345,6 @@ public class AdminController {
 		serMarcas.guardar(mar);
 		return "private/admin/index-admin";
 	}
-	
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE EMPLEADOS //////////////////////////////
 	
@@ -380,10 +409,16 @@ public class AdminController {
 		return "private/admin/index-admin";
 	}
 		
-		@InitBinder
-		public void initBinder(WebDataBinder webDataBinder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-		}
+	@InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
+	
+	@ModelAttribute
+	public void setGenericos(Model model) {
+		Productos busquedaPro = new Productos();
+		model.addAttribute("search", busquedaPro);
+	}
 
 }

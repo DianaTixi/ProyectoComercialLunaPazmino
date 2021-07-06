@@ -38,7 +38,7 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item active">
-                    <a class="menu-link" href="index-admin.html"> <i class="icon material-icons md-home"></i>
+                    <a class="menu-link" th:href="@{/home-admin/index}"> <i class="icon material-icons md-home"></i>
                         <span class="text">Inicio</span>
                     </a>
                 </li>
@@ -60,6 +60,7 @@
                     	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
                         <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
                         <a th:href="@{/home-admin/listarProductos}">Tabla de Productos</a>
+                        <a th:href="@{/home-admin/productosBloqueados}">Desbloquear Productos</a>
                         
                     </div>
                 </li>
