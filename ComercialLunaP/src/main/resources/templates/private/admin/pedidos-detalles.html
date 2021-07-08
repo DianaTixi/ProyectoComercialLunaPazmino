@@ -277,12 +277,12 @@
 		                                    <td th:text="${pedidoDC.pedidoCabecera.fecha}"></td>
 		                                    
                                 		</tr>
-                                        <tr th:each= "pedidoDC: ${listarDetalleC}">
+                                        <tr >
                                             <td colspan="4">
                                                 <article class="float-end">
                                                     <dl class="dlist">
                                                         <dt >Subtotal:</dt>
-                                                        <dd  th:text="${pedidoDC.subtotal}" ></dd>
+                                                        <dd  th:text="${cabecera.subtotal}" ></dd>
                                                     </dl>
                                                     <dl class="dlist">
                                                         <dt>IVA:</dt>
@@ -291,14 +291,14 @@
                                                     <dl class="dlist">
                                                         <dt>Total:</dt>
                                                         <dd  > 
-                                                        	<b th:text="${pedidoDC.pedidoCabecera.total}" class="h5"></b>
+                                                        	<b th:text="${cabecera.total}" class="h5"></b>
                                                         </dd>
                                                     </dl>
                                                     <dl class="dlist">
                                                         <dt class="text-muted">Estado:</dt>
                                                         <dd>
-                                                            <span th:if="${pedidoDC.pedidoCabecera.estado} eq 'P'"  class="badge rounded-pill alert-warning">Pendiente</span>
-    														<span th:if="${pedidoDC.pedidoCabecera.estado} eq 'E'" class="badge rounded-pill alert-success">Entregado</span>
+                                                            <span th:if="${cabecera.estado} eq 'P'"  class="badge rounded-pill alert-warning">Pendiente</span>
+    														<span th:if="${cabecera.estado} eq 'E'" class="badge rounded-pill alert-success">Entregado</span>
                                                         </dd>
                                                     </dl>
                                                 </article>

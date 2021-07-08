@@ -340,8 +340,8 @@ public class AdminController {
 		PedidosCabeceras pedidosCabeceras = serPedidoC.buscarPedidosCPorID(id_pedC);
 		model.addAttribute("cabecera", pedidosCabeceras);
 	
-		PedidosDetalles pedidosDetalles = serPedidoD.buscarPorCabecera_Id(id_pedC);
-		model.addAttribute("detalle", pedidosDetalles);
+		//PedidosDetalles pedidosDetalles = serPedidoD.buscarPorCabecera_Id(id_pedC);
+		//model.addAttribute("detalle", pedidosDetalles);
 		
 		int id_persona = pedidosCabeceras.getPersona().getId();
 		Personas cliente = serPersonas.buscarPersonaPorID(id_persona);
