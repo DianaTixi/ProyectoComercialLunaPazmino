@@ -1,8 +1,10 @@
 package comerciallunapazmino.com.ComercialLunaP.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.Productos;
 import comerciallunapazmino.com.ComercialLunaP.repository.ProductoRepository;
@@ -16,6 +18,8 @@ public interface IProductoService{
 	void activarProducto (int pro_id);
 	
 	List<Productos> buscarByExample (Example<Productos> example);
+	Page<Productos> paginacionProductos();
 	
+	Page<Productos> bucarTodos(Pageable page);
 
 }

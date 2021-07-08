@@ -1,11 +1,14 @@
 package comerciallunapazmino.com.ComercialLunaP.service.db;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.Categorias;
@@ -79,6 +82,21 @@ public class ProductosServiceJPA implements IProductoService {
 	public List<Productos> buscarByExample(Example<Productos> example) {
 		// TODO Auto-generated method stub
 		return pro_rep.findAll(example);
+	}
+
+	@Override
+	public Page<Productos> paginacionProductos() {
+		Page<Productos> page = pro_rep.findAll(PageRequest.of(0, 2));
+		System.out.println("Total Registros: " + page.getTotalElements());
+		System.out.println("Total Paginas: " + page.getTotalPages());
+		
+		return page;
+	}
+
+	@Override
+	public Page<Productos> bucarTodos(Pageable page) {
+		// TODO Auto-generated method stub
+		return  null; //pro_rep.findAll(page);
 	}
 	
 }

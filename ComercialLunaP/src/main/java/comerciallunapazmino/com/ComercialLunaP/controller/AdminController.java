@@ -1,5 +1,6 @@
 package comerciallunapazmino.com.ComercialLunaP.controller;
 
+import java.awt.print.Pageable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -271,7 +272,7 @@ public class AdminController {
 		return "private/admin/editar-producto";
 	}
 	
-	//Metodo para eliminar categorias
+	//Metodo para eliminar productos
 	@GetMapping("/deletePro")
 	public String eliminarPro(@RequestParam("id") int id_pro) {
 		serProductos.eliminar(id_pro);
@@ -302,6 +303,15 @@ public class AdminController {
 		List<Productos> listarPro = serProductos.buscarByExample(example);
 		model.addAttribute("productosL", listarPro);
 		return "private/admin/buscar-productos" ;	
+	}
+	
+	//Listar Por Paginacion
+	@GetMapping("/pageProductos")
+	public String pageProductos(Model model ) {
+		Page<Productos> lista = serProductos.paginacionProductos();
+		model.addAttribute("pageProductos", lista);
+		return "private/admin/tabla-productos";
+		
 	}
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO - Imagenes //////////////////////////////

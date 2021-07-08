@@ -26,7 +26,6 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 	public void guardar(PedidosCabeceras pedidosC) {
 		pedC_rep.save(pedidosC);
 		
-
 	}
 
 	@Override
