@@ -16,6 +16,9 @@
     <!-- custom style -->
     <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 
@@ -203,7 +206,7 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Descripcion</th>
-                                    <th scope="col" class="text-end"> Editar</th>
+                                    <th scope="col" class="text-end">Subcategorias</th>
                                     <th scope="col" class="text-end"> Eliminar </th>
                                     
                                 </tr>
@@ -218,13 +221,12 @@
                                     </td>
                                     <td th:text="${categoriaL.descripcion}"></td>
                                     <td class="text-end">
-                                        <a th:href="@{/home-admin/verSubcategorias(id=${categoriaL.id})}" class="btn btn-success">Detalle</a>
+                                        <a th:href="@{/home-admin/verSubcategorias(id=${categoriaL.id})}" class="btn btn-success" role="button" title="Detalles"><i class="fa fa-plus-square" aria-hidden="true"></i></i></a>
                                     </td>
                                     <td class="text-end">
-                                        <a th:href="@{/home-admin/delete(id=${categoriaL.id})}" class="btn btn-danger">Eliminar</a>
+                                        <a th:href="@{/home-admin/delete(id=${categoriaL.id})}" class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro?')" title="Eliminar Registro"><i class="fa fa-trash-o" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>

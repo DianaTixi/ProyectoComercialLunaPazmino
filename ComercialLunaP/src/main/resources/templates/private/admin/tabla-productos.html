@@ -17,6 +17,8 @@
 
     <!-- iconfont -->
     <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -160,12 +162,16 @@
         </header>
 
         <section class="content-main">
-
+			<div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'>
+                	<h1> Mensaje:</h1>
+                	</div>
+                <div>
             <div class="content-header">
                 <h2 class="content-title">Tabla de Productos </h2>
-                <div>
+                
                     <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Agregar Nuevo</a>
                 </div>
+                <div>
             </div>
 
             <div class="card mb-4">
@@ -183,9 +189,14 @@
                   </form>
                 </header>
                 <!-- card-header end// -->
+                <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'>
+                	
+                </div>
                 <div class="card-body">
+                
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                       <table class="table table-hover">
+                       
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -199,12 +210,13 @@
                                     <th>Categoria</th>
                                     <th>Subcategoria</th>
                                     <th>Marca</th>
-                                    <th class="text-end">Detalle</th>
-                                    <th class="text-end">Eliminar</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each= "productosL: ${listarPro}">
+                                <tr th:each= "productosL: ${listarProductos}">
                                     <td th:text="${productosL.id}"></td>
                                     <td th:text="${productosL.codigo}"></td>
                                     <td th:text="${productosL.nombre}"></td>
@@ -223,7 +235,10 @@
                                         <a th:href="@{/home-admin/listarDetallesPro(id=${productosL.id})}" class="btn btn-success">Detalle</a>
                                     </td>
                                     <td class="text-end">
-                                        <a th:href="@{/home-admin/deletePro(id=${productosL.id})}" class="btn btn-danger">Eliminar</a>
+                                        <a th:href="@{/home-admin/editarProducto/{id} (id=${productosL.id})}" class="btn btn-success btn-sm" role="button" title="Editar Producto"> <i class="fa fa-pencil" style="font-size:32px"></i> </a>
+                                    </td>
+                                    <td class="text-end">
+                                        <a th:href="@{/home-admin/deletePro(id=${productosL.id})}" class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro?')" title="Eliminar Registro"><i class="fa fa-trash-o" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -16,6 +16,9 @@
     <!-- custom style -->
     <link href="../../css/ui1.css?v=1.1?v=1.0" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1?v=1.0" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 
@@ -171,22 +174,21 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-md-6">
                             <span>
-                  <i class="material-icons md-calendar_today"></i> <b>Wed, Aug 13, 2020, 4:34PM</b>  
+                  <i class="material-icons md-calendar_today"></i> <b th:text = "${cabecera.fecha}"> </b>  
                 </span> <br>
-                            <small class="text-muted">ID Pedido: 3453012</small>
+                            <small class="text-muted"  th:text =  " 'ID Pedido: ' +${cabecera.orden}" ></small>
                         </div>
                         <div class="col-lg-6 col-md-6 ms-auto text-md-end">
-                        <form>
-                        	
-                            <select name="estado" class="form-select d-inline-block" style="max-width: 200px">
+                        <form th:action="@{/home-admin/editarPedidoC}" method="POST" >
+                        	<input  id="prodId" name="id" type="hidden" th:value="${cabecera.id}">
+                       		<select name="estado" class="form-select d-inline-block" style="max-width: 200px">
 			                  <option>Cambiar Estado</option>
 			                  <option value="C">Cancelado</option>
 			                  <option value="E" >Entregado</option>
 			                  <option value="P" >Pendiente</option>
 			                </select>
 			                <input type="submit" value="Guardar" class="btn btn-light" />
-                            
-                        </form>
+                      	</form>
                         </div>
                     </div>
                 </header>
@@ -201,10 +203,10 @@
                   </span>
                                 <div class="text">
                                     <h6 class="mb-1">Cliente</h6>
-                                    <p class="mb-1">
-                                        John Alexander <br> alex@example.com <br> +998 99 22123456
-                                    </p>
-                                    <a href="#">View profile</a>
+                                    <p  class="mb-1"th:text = "${cliente.nombres} + ' '+ ${cliente.apellidos}" > </p>
+                                    <p  class="mb-1"th:text = "${cliente.email}" > </p>
+                                    <p  class="mb-1"th:text = "${cliente.telefono}" > </p>
+                                    
                                 </div>
                             </article>
                         </div>
@@ -216,10 +218,16 @@
                   </span>
                                 <div class="text">
                                     <h6 class="mb-1">Pedido Informacion</h6>
-                                    <p class="mb-1">
-                                        Shipping: Fargo express <br> Pay method: card <br> Status: new
-                                    </p>
-                                    <a href="#">Descargar Informacion</a>
+                                    <p>Entrega:
+	                                    <span th:if="${cabecera.entrega} eq 'L'" >  Local</span>
+	    								<span th:if="${cabecera.entrega} eq 'D'" > Domicilio</span>
+	    								<br>
+	    								Metodo de Pago: 
+	                                    <span th:if="${cabecera.pago} eq 'C'" >Contado</span>
+	    								<span th:if="${cabecera.estado} eq 'D'" >Diferido</span>
+	    								<br>
+	    								Estatus: 
+	                                </p>
                                 </div>
                             </article>
                         </div>
@@ -231,10 +239,9 @@
                   </span>
                                 <div class="text">
                                     <h6 class="mb-1">Entregar a </h6>
-                                    <p class="mb-1">
-                                        City: Tashkent, Uzbekistan <br>Block A, House 123, Floor 2 <br> Po Box 10000
-                                    </p>
-                                    <a href="#">Ver Perfil</a>
+                                    <p class="mb-1"th:text = " 'Cuidad: ' + ${cabecera.ciudad.nombre} + ' ' + ${cabecera.direccion}" ></p>
+	                                <p class="mb-1"th:text = " 'Referencia: ' + ${cabecera.referencia} "></p>
+                                    
                                 </div>
                             </article>
                         </div>
@@ -259,10 +266,10 @@
                                         <tr th:each= "pedidoDC: ${listarDetalleC}"> 
 	                                        <td th:text="${pedidoDC.producto.nombre}">
 	                                                <a class="itemside" href="#">
-	                                                    <div class="left">
-	                                                        <img src="../../images/items/1.jpg" width="40" height="40" class="img-xs" alt="Item">
-	                                                    </div>
-	                                                </a>
+                                                    <div class="left">
+                                                        <img src="../../images/items/2.jpg" width="40" height="40" class="img-xs" alt="Item">
+                                                    </div>
+                                                </a>
 	                                        </td>
 		                                    <td th:text="${pedidoDC.id}"></td>
 		                                    <td th:text="${pedidoDC.cantidad}"></td>
@@ -306,14 +313,19 @@
                             <div class="box shadow-sm bg-light">
                                 <h6>Informacion del Pago</h6>
                                 <p>
-                                    <img src="../../images/card-brands/2.png" class="border" height="20"> Master Card **** **** 4768 <br> Business name: Grand Market LLC <br> Phone: +1 (800) 555-154-52
+                                    <b>Metodo de Pago: <b>
+	                                    <span th:if="${cabecera.pago} eq 'C'" class="badge rounded-pill alert-success" > <i class="fa fa-money" aria-hidden="true"></i> Contado</span>
+	    								<span th:if="${cabecera.estado} eq 'D'" class="badge rounded-pill alert-primary"> <i class="fa fa-credit-card" aria-hidden="true"></i> Diferido</span>
+                                   <br> 
+                                   <i class="fa fa-map-marker" aria-hidden="true"> <b th:text="${cabecera.ciudad.provincia.nombre} +'-'+ ${cabecera.ciudad.nombre}" ></b> </i>
+                                   <br> 
+                                   <i class="fa fa-phone" aria-hidden="true"> <b th:text="${cliente.telefono}" ></b> </i>
                                 </p>
                             </div>
                             
                             <div class="h-25 pt-4">
                                 <div class="mb-3">
-                                    <label>Notes</label>
-                                    <textarea class="form-control" name="notes" id="notes" placeholder="Type some note"></textarea>
+                                    <textarea class="form-control" name="notes" id="notes" placeholder="Observaciones"></textarea>
                                 </div>
                                 <button class="btn btn-primary">Guardar </button>
                             </div>
@@ -325,8 +337,6 @@
                 <!-- card-body end// -->
             </div>
             <!-- card end// -->
-
-
 
         </section>
         <!-- content-main end// -->

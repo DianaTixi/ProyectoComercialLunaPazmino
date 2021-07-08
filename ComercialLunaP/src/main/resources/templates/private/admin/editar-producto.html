@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Sample title - Ecommerce admin dashboard template</title>
+    <title>Comercial Luna Pazmiño</title>
 
     <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -168,28 +168,29 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <form th:action="@{/home-admin/saveProducto}" method="POST" enctype="multipart/form-data"  >  
+                    <form th:action="@{/home-admin/saveProducto}" method="POST" enctype="multipart/form-data" th:object="${producto}" >  
                         <div class="mb-4">
                             <label for="product_name" class="form-label">Nombre Producto</label>
-                            <input name="nombre" type="text" placeholder="Type here" class="form-control"  id=" product_name" required>
+                            <input  th:field="*{nombre}" name="nombre" type="text" placeholder="Type here" class="form-control" id=" product_name" required>
                         </div>
+                        <input th:field="*{id}" id="prodId" name="id" type="hidden" th:value="${producto.id}">
                         <div class="mb-4">
                             <label for="product_name" class="form-label">Codigo</label>
-                            <input name="codigo" type="text" placeholder="Type here" class="form-control"  id="product_codigo" required>
+                            <input th:field="*{codigo} " name="codigo" type="text" placeholder="Type here" class="form-control"  id="product_codigo" required>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Descripcion</label>
-                            <textarea name="descripcion" placeholder="Type here" class="form-control" rows="4" required></textarea>
+                            <textarea th:field="*{descripcion}" name="descripcion" placeholder="Type here" class="form-control" rows="4" required></textarea>
                         </div>
                         <div class="row gx-2">
                         	<label for="product_name" class="form-label">Estado</label>
 	                            <div class="col-sm-6 mb-3">
 	                                <label class="form-label">Activo</label>
-	                                <input type="radio" name="estado" value="A" >
+	                                <input th:field="*{estado}" type="radio" name="estado" value="A" >
 	                            </div>
 	                            <div class="col-sm-6 mb-3">
 	                                <label class="form-label">Inactivo</label>
-	                                <input type="radio" name="estado" value="I" >
+	                                <input th:field="*{estado}" type="radio" name="estado" value="I" >
 	                            </div>
 	                    </div>
 
@@ -197,35 +198,38 @@
                             <label class="form-label">Dimensiones</label>
                             <div class="row gx-2">
                                 <div class="col-2">
-                                    <input name="alto" type="text" placeholder="Alto" class="form-control" id="product_name" required>
+                                	<label class="form-label">Alto</label>
+                                    <input th:field="*{alto}" name="alto" type="text" placeholder="Alto" class="form-control" id="product_name" required>
                                 </div>
                                 <div class="col-2">
-                                    <input name="ancho" type="text" placeholder="Ancho" class="form-control" id="product_name" required>
+                                	<label class="form-label">Ancho</label>
+                                    <input th:field="*{ancho}" name="ancho" type="text" placeholder="Ancho" class="form-control" id="product_name" required>
                                 </div>
                                 <div class="col-2">
-                                    <input name="profundidad" type="text" placeholder="Profundidad" class="form-control" id="product_name" required>
+                                	<label class="form-label">Profundidad</label>
+                                    <input th:field="*{profundidad}" name="profundidad" type="text" placeholder="Profundidad" class="form-control" id="product_name" required>
                                 </div>
                             </div>
                             <!-- row.// -->
                         </div>
                         <div class="row gx-2">
                             <div class="col-sm-6 mb-3">
-                                <label class="form-label">Stock</label>
-                                <input name="stock" type="text" placeholder="" class="form-control" id="product_name" value="">
+                                <label  class="form-label">Stock</label>
+                                <input th:field="*{stock}" name="stock" type="text" placeholder="" class="form-control" id="product_name" value="">
                             </div>
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label">Descuento</label>
-                                <input name="descuento" type="text" placeholder="" class="form-control" id="product_name" value="" >
+                                <input th:field="*{descuento}" name="descuento" type="text" placeholder="" class="form-control" id="product_name" value="" >
                             </div>
                         </div>
                         <div class="row gx-2">
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label">Precio Contado</label>
-                                <input name="precioC" type="text" placeholder="$$$$" class="form-control" id="product_name" required>
+                                <input th:field="*{precioC}" name="precioC" type="text" placeholder="$$$$" class="form-control" id="product_name" required>
                             </div>
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label">Precio Diferido</label>
-                                <input name="precioD" type="text" placeholder="$$$$" class="form-control" id="product_name" required>
+                                <input th:field="*{precioD}" name="precioD" type="text" placeholder="$$$$" class="form-control" id="product_name" required>
                             </div>
                         </div>
                         
@@ -237,7 +241,7 @@
                             <label class="form-label">Color</label>
                             <div class="row gx-2">
                                 <div class="mb-4">
-                                    <select name="color" class="form-select" required>
+                                    <select th:field="*{color}" name="color" class="form-select" required>
                                         <option value="Blanco"> Blanco </option>
                                         <option value="Negro"> Negro </option>
                                         <option value="Verde"> Verde </option>
@@ -275,7 +279,7 @@
                             </div>
                             <div class="col-md-4  mb-3">
                                 <label class="form-label">Marca</label>
-                                <SELECT name="marca" class="form-select" required>
+                                <SELECT  name="marca" class="form-select" required>
                                 	<option>Seleccione...</option>
                                 	<option th:each="marca : ${listarM}" th:value="${marca.id}" th:utext="${marca.nombre}" > </option>
 								</SELECT>

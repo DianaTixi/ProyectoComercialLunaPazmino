@@ -1,6 +1,7 @@
 package comerciallunapazmino.com.ComercialLunaP.service.db;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -29,17 +30,22 @@ public class PedidosDetallesServiceJPA implements IPedidoDetalleService {
 	}
 
 	@Override
-	public PedidosDetalles buscarByIdCabecera(int id_cab) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<PedidosDetalles> buscarPedidoC_Id(int pedC_id) {
 		List<PedidosDetalles> pedidoDC = pedD_rep.findBypedidoCabecera_Id(pedC_id);
+		
 		return pedidoDC;
 	}
 
+	@Override
+	public PedidosDetalles buscarPorCabecera_Id(int id_cab) {
+		Optional<PedidosDetalles> optional = pedD_rep.findByPedidoCabecera_Id(id_cab);
+		if (optional.isPresent()) {
+			return optional.get();
+			
+		}return null;
+	}
 
+
+	
 
 }

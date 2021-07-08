@@ -17,6 +17,8 @@
 
     <!-- iconfont -->
     <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -230,7 +232,7 @@
                                     <td th:text="${productosL.marca.nombre}"></td>
                                     
                                     <td class="text-end">
-                                        <a th:href="@{/home-admin/activarProducto(id=${productosL.id})}" class="btn btn-success">Activar</a>
+                                        <a th:href="@{/home-admin/activarProducto(id=${productosL.id})}" class="btn btn-success"><i class="fa fa-check-square" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

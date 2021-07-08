@@ -1,6 +1,7 @@
 package comerciallunapazmino.com.ComercialLunaP.service.db;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -40,6 +41,15 @@ public class ImagenesServiceJPA implements IImagenService {
 	public List<Imagenes> listarPorProducto(int pro_id) {
 		List<Imagenes> listaProImg = img_rep.findByProducto_Id(pro_id);
 		return listaProImg;
+	}
+
+	@Override
+	public Imagenes buscarPorProducto(int id_pro) {
+		Optional<Imagenes> optional = img_rep.findByproducto_id(id_pro);
+		if (optional.isPresent()) {
+			return optional.get();
+			
+		}return null;
 	}
 
 }

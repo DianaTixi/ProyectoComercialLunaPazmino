@@ -17,6 +17,8 @@
 
     <!-- iconfont -->
     <link rel="stylesheet" href="../../fonts/material-icon/css/round.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -185,8 +187,7 @@
                                     <th>Email</th>
                                     <th>Rol</th>
                                     <th>Estado</th>
-                                    <th scope="col" class="text-end"> Editar</th>
-                                    <th scope="col" class="text-end"> Eliminar </th>
+                                    <th > Bloquear </th>
                                     
                                 </tr>
                             </thead>
@@ -203,11 +204,12 @@
 	                                    	<span th:if="${empleadosL.estado} eq 'I'" class="badge rounded-pill alert-danger">Inactivo</span>
     										<span th:if="${empleadosL.estado} eq 'A'" class="badge rounded-pill alert-success">Activo</span>
                                     </td>
+                                    <!-- 
                                     <td >
                                         <a th:href="@{/home-admin/view/{id} (id=${empleadosL.id})}" class="btn btn-success">Detalle</a>
-                                    </td>
+                                    </td>-->
                                     <td >
-                                        <a th:href="@{/home-admin/deleteEmp(id=${empleadosL.id})}" class="btn btn-danger">Eliminar</a>
+                                        <a th:href="@{/home-admin/deleteEmp(id=${empleadosL.id})}" class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro?')" title="Eliminar Registro"><i class="fa fa-trash-o" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

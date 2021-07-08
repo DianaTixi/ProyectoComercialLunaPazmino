@@ -9,5 +9,6 @@ public interface IImagenService {
 	List<Imagenes> listar();
 	void modificar (int id_img);
 	List<Imagenes> listarPorProducto (int pro_id);
+	Imagenes buscarPorProducto ( int id_pro);
 
 }

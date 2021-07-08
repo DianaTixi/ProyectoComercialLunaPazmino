@@ -16,6 +16,8 @@
     <!-- custom style -->
     <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 
@@ -235,7 +237,7 @@
                                     </td>
                                     
                                      <td class="text-end">
-                                        <a th:href="@{/home-admin/verDetalle(id=${pedidosL.id})}" class="btn btn-success">Detalle</a>
+                                        <a th:href="@{/home-admin/verDetalle/{id} (id=${pedidosL.id})}" class="btn btn-success" role="button" title="Detalles"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
                                     </td>
                                     
                                 </tr>

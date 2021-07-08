@@ -21,12 +21,13 @@ public class CategoriasController {
 	@Autowired
 	public ICategoriaService serCategorias;
 	
+	/*
 	@RequestMapping(value = "/listarCategorias", method=RequestMethod.GET)
 	public String listarCategorias(Model model) {
 		List<Categorias> lista = serCategorias.listar();
 		model.addAttribute("listarCategorias", lista);
 		return "private/admin/listar-categorias";
 		
-	}
+	}*/
 	
 }

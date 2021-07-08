@@ -16,6 +16,9 @@
     <!-- custom style -->
     <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 
@@ -217,7 +220,7 @@
                                     </td>
                                     <td th:text="${subcategoriaL.descripcion}"></td>
                                     <td class="text-end">
-                                        <a th:href="@{/home-admin/deleteSubCat(id=${subcategoriaL.id})}" class="btn btn-danger">Eliminar</a>
+                                        <a th:href="@{/home-admin/deleteSubCat(id=${subcategoriaL.id})}" class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro?')" title="Desactivar"><i class="fa fa-trash-o" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
 

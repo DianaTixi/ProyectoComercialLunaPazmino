@@ -11,5 +11,6 @@ import comerciallunapazmino.com.ComercialLunaP.modelo.PedidosDetalles;
 
 public interface PedidoCabeceraRepository extends JpaRepository<PedidosCabeceras, Integer> {
 
-	List<PedidosCabeceras> findById(int id); 
+	List<PedidosCabeceras> findByPersona_id(int id_per);
+	
 }

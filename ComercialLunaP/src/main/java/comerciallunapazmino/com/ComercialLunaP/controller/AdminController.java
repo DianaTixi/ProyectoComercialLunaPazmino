@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.MultipartFilter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.Categorias;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Imagenes;
@@ -74,11 +76,16 @@ public class AdminController {
 	
 	@RequestMapping(value = "/index", method=RequestMethod.GET)
 	public String index(Model model) {
-		List<PedidosCabeceras> listaPC = serPedidoC.listar();
-		model.addAttribute("listarPedidosC", listaPC);
+		Page<PedidosCabeceras> pedidos = serPedidoC.listRecientes();
+		model.addAttribute("pedidosR", pedidos);
+		long totalOrd = serPedidoC.TotalOrdenes();
+		model.addAttribute("totalOrd", totalOrd);
 		return "private/admin/index-admin";
 	}
 
+	
+	//Lista de los ultimos pedidos 
+	
 	
 	@GetMapping("/crearCategoria")
 	public String createC(Model model) {
@@ -126,10 +133,11 @@ public class AdminController {
 	
 	//Metodo para eliminar categorias
 	@GetMapping("/delete")
-	public String eliminarC(@RequestParam("id") int id_cat) {
+	public String eliminarC(@RequestParam("id") int id_cat, RedirectAttributes attributes) {
 		serCategorias.eliminar(id_cat);
 		System.out.println("Borrar la categoria: " + id_cat);
-		return "private/admin/index-admin";
+		attributes.addFlashAttribute("msg", "Categoria Eliminada");
+		return "redirect:/home-admin/listarCategorias";
 	}
 	
 	
@@ -181,22 +189,15 @@ public class AdminController {
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO //////////////////////////////
 	@RequestMapping(value = "/agregarProductos", method=RequestMethod.GET)
 	public String agregarProductos(Model model) {
-		List<Marcas> listaM = serMarcas.listar();
-		List<SubCategorias> listaSC = serSubCategorias.listar();
-		List<Categorias> listaC = serCategorias.listar();
-		model.addAttribute("listarSC", listaSC);
-		model.addAttribute("listarM", listaM);
-		model.addAttribute("listarC", listaC);
-		return "private/admin/agregar-producto";	
+		
+		return "/private/admin/agregar-producto";	
 	}
 	
 	//Metodo para Listar
 	@RequestMapping(value = "/listarProductos", method=RequestMethod.GET)
 	public String listarProductos(Model model) {
-		List<Productos> listaPro = serProductos.listar();
-		model.addAttribute("listarPro", listaPro);
-		List<Categorias> listaC = serCategorias.listar();
-		model.addAttribute("listarCat", listaC);
+		List<Productos> lista = serProductos.listar();
+		model.addAttribute("listarProductos", lista);
 		return "private/admin/tabla-productos";
 	}
 	
@@ -207,6 +208,7 @@ public class AdminController {
 		model.addAttribute("listaImag", listaImg);
 		return "private/admin/listar-productoDetalle";
 	}
+	
 	/*
 	@RequestMapping(value="/saveProducto", method=RequestMethod.POST)
 	public String savePro(Productos producto ) {
@@ -217,11 +219,12 @@ public class AdminController {
 	*/
 	@RequestMapping(value="/saveProducto", method=RequestMethod.POST)
 	public String savePro(@RequestParam ("nombre") String nombre, @RequestParam ("codigo") String codigo, @RequestParam ("descripcion") String descripcion, @RequestParam ("estado") String estado, 
-						@RequestParam ("alto") String alto , @RequestParam ("ancho") String ancho, @RequestParam ("profundidad") String profundidad, @RequestParam ("precioC") String precioC, 
-						@RequestParam ("precioD") String precioD, @RequestParam ("color") String color, @RequestParam ("categoria") String categoria, @RequestParam ("subcategoria") String subcategoria, 
-						@RequestParam ("marca") String marca, @RequestParam ("imagen") MultipartFile multiPart ) {
-		System.out.println(nombre +" "+ codigo +" " + descripcion + "-"+ estado +" "+ alto +" " + ancho + "-"+ profundidad+ " "+precioC +" "+ precioD +" " + color + "-"+ categoria +" "+ subcategoria + " "+ marca);
+						@RequestParam ("alto") String alto , @RequestParam ("ancho") String ancho, @RequestParam ("profundidad") String profundidad, @RequestParam ("stock") String stock, 
+						@RequestParam ("descuento") String descuento, @RequestParam ("precioC") String precioC,@RequestParam ("precioD") String precioD, @RequestParam ("color") String color, 
+						@RequestParam ("categoria") String categoria, @RequestParam ("subcategoria") String subcategoria, @RequestParam ("marca") String marca, @RequestParam ("imagen") MultipartFile multiPart , @RequestParam ("id") String id) {
+		System.out.println( id +""+ nombre +" "+ codigo +" " + descripcion + "-"+ estado +" "+ alto +" " + ancho + "-"+ profundidad+ " " + stock + " "+ descuento + "" +precioC +" "+ precioD +" " + color + "-"+ categoria +" "+ subcategoria + " "+ marca);
 		Productos pro = new Productos();
+		pro.setId(Integer.parseInt(id));
 		pro.setCodigo(codigo);
 		pro.setNombre(nombre);
 		pro.setDescripcion(descripcion);
@@ -230,6 +233,8 @@ public class AdminController {
 		pro.setAncho(Double.valueOf(ancho));
 		pro.setAlto(Double.valueOf(alto));
 		pro.setProfundidad(Double.valueOf(profundidad));
+		pro.setStock(Integer.parseInt(stock));
+		pro.setDescuento(Double.valueOf(descuento));
 		pro.setColor(color);
 		pro.setEstado(estado.charAt(0));
 		SubCategorias subcat = new SubCategorias();
@@ -243,7 +248,7 @@ public class AdminController {
 		serProductos.guardar(pro);
 		
 		if (!multiPart.isEmpty()) {
-			String ruta = "C:/Users/Usuario/Documents/workspace-spring-tool-suite-4-4.11.0.RELEASE/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
 			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
 				if (nombreImagen != null){ // La imagen si se subio
 				// Procesamos la variable nombreImagen
@@ -257,12 +262,21 @@ public class AdminController {
 		return "private/admin/index-admin";
 	}
 	
-	//Metodo para eliminar - desactivar Productos
+	//Metodo para Editar un Producto
+	@GetMapping("/editarProducto/{id}")
+	public String editarProducto(@PathVariable("id") int idPro, Model model) {
+		Productos producto = serProductos.buscarProductoPorID(idPro);
+		model.addAttribute("producto", producto);
+		System.out.println(producto.getNombre()+ producto.getCodigo());
+		return "private/admin/editar-producto";
+	}
+	
+	//Metodo para eliminar categorias
 	@GetMapping("/deletePro")
 	public String eliminarPro(@RequestParam("id") int id_pro) {
 		serProductos.eliminar(id_pro);
-		System.out.println("Borrar el Producto: " + id_pro);
-		return "private/admin/index-admin";
+		System.out.println("Borrar la producto: " + id_pro);
+		return "redirect:/home-admin/listarProductos";
 	}
 	
 	//Lista de Productos Bloqueados
@@ -310,14 +324,46 @@ public class AdminController {
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PEDIDOS DETALLES//////////////////////////////
 	
-	@GetMapping("/verDetalle")
-	public String detalleP(@RequestParam("id") int id_pedidoC, Model model) {
-		List<PedidosDetalles> detalleP = serPedidoD.buscarPedidoC_Id(id_pedidoC);
+	@GetMapping("/verDetalle/{id}")
+	public String verDetalleP(@PathVariable("id") int id_pedC, Model model) {
+		PedidosCabeceras pedidosCabeceras = serPedidoC.buscarPedidosCPorID(id_pedC);
+		model.addAttribute("cabecera", pedidosCabeceras);
+	
+		PedidosDetalles pedidosDetalles = serPedidoD.buscarPorCabecera_Id(id_pedC);
+		model.addAttribute("detalle", pedidosDetalles);
 		
-		model.addAttribute("listarDetalleC", detalleP);
+		int id_persona = pedidosCabeceras.getPersona().getId();
+		Personas cliente = serPersonas.buscarPersonaPorID(id_persona);
+		model.addAttribute("cliente", cliente);
+		
+		List<PedidosDetalles>  listaDC = serPedidoD.buscarPedidoC_Id(id_pedC);
+		model.addAttribute("listarDetalleC", listaDC);
+		
 		return "private/admin/pedidos-detalles";
 	}
 	
+	//Cambiar Estado Pedido Cabecera
+	@RequestMapping(value="/editarPedidoC", method=RequestMethod.POST)
+	public String editarPedidoC(@RequestParam ("id") String id, @RequestParam ("estado") String estado) {
+		System.out.println("Id = " + id + " Nuevo Estado= " + estado);
+		
+		int id_ped = Integer.parseInt(id);
+		char estad = estado.charAt(0);
+		serPedidoC.editar(id_ped, estad);
+		
+		return "redirect:/home-admin/listarPedidos" ;
+		
+	}
+	
+	//Metodo para Editar un Producto
+		/*@GetMapping("/editarProducto/{id}")
+		public String editarProducto(@PathVariable("id") int idPro, Model model) {
+			Productos producto = serProductos.buscarProductoPorID(idPro);
+			model.addAttribute("producto", producto);
+			System.out.println(producto.getNombre()+ producto.getCodigo());
+			return "private/admin/editar-producto";
+		}
+		*/
 	@RequestMapping(value = "/listarDetalles", method=RequestMethod.GET)
 	public String listarDetalle( Model model) {
 		List<PedidosDetalles> listarDet = serPedidoD.listar();
@@ -343,7 +389,7 @@ public class AdminController {
 		char orig = origen.charAt(0);
 		mar.setOrigen(orig);
 		serMarcas.guardar(mar);
-		return "private/admin/index-admin";
+		return "redirect:/home-admin/agregar-marca";
 	}
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE EMPLEADOS //////////////////////////////
@@ -419,6 +465,13 @@ public class AdminController {
 	public void setGenericos(Model model) {
 		Productos busquedaPro = new Productos();
 		model.addAttribute("search", busquedaPro);
+		List<Marcas> listaM = serMarcas.listar();
+		List<SubCategorias> listaSC = serSubCategorias.listar();
+		List<Categorias> listaC = serCategorias.listar();
+		model.addAttribute("listarSC", listaSC);
+		model.addAttribute("listarM", listaM);
+		model.addAttribute("listarC", listaC);
+		
 	}
 
 }
