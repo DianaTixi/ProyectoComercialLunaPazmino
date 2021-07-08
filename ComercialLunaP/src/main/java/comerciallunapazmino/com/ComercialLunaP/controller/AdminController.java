@@ -277,7 +277,7 @@ public class AdminController {
 	public String eliminarPro(@RequestParam("id") int id_pro) {
 		serProductos.eliminar(id_pro);
 		System.out.println("Borrar la producto: " + id_pro);
-		return "redirect:/home-admin/listarProductos";
+		return "redirect:/home-admin/pageProductos";
 	}
 	
 	//Lista de Productos Bloqueados
@@ -307,8 +307,9 @@ public class AdminController {
 	
 	//Listar Por Paginacion
 	@GetMapping("/pageProductos")
-	public String pageProductos(Model model ) {
-		Page<Productos> lista = serProductos.paginacionProductos();
+	public String pageProductos( Model model ) {
+		
+		Page<Productos> lista = serProductos.paginacionProductos(0);
 		model.addAttribute("pageProductos", lista);
 		return "private/admin/tabla-productos";
 		

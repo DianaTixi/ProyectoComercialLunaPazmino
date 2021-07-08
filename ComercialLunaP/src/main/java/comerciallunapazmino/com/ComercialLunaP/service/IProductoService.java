@@ -18,7 +18,7 @@ public interface IProductoService{
 	void activarProducto (int pro_id);
 	
 	List<Productos> buscarByExample (Example<Productos> example);
-	Page<Productos> paginacionProductos();
+	Page<Productos> paginacionProductos(int pages);
 	
 	Page<Productos> bucarTodos(Pageable page);
 

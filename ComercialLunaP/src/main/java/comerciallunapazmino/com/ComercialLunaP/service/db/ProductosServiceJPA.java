@@ -85,8 +85,8 @@ public class ProductosServiceJPA implements IProductoService {
 	}
 
 	@Override
-	public Page<Productos> paginacionProductos() {
-		Page<Productos> page = pro_rep.findAll(PageRequest.of(0, 2));
+	public Page<Productos> paginacionProductos(int pages) {
+		Page<Productos> page = pro_rep.findAll(PageRequest.of(pages, 10));
 		System.out.println("Total Registros: " + page.getTotalElements());
 		System.out.println("Total Paginas: " + page.getTotalPages());
 		
