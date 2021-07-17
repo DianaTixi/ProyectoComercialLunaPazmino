@@ -49,12 +49,11 @@ public class PersonasServiceJPA implements IPersonaService {
 		Optional<Personas> optional =  per_rep.findById(id_per);
 		if (optional.isPresent()) {
 			Personas per= optional.get();
-			per.setEstado('I');
+			per.setEstatus(0);
 			per_rep.save(per);
 			System.out.println(optional.get()); 
 			}else 
 				System.out.println("No se encontro");
 	}
-
 
 }

@@ -45,6 +45,12 @@ public class PedidosDetallesServiceJPA implements IPedidoDetalleService {
 		}return null;
 	}
 
+	@Override
+	public int TotalProductosVendidos() {
+		// TODO Auto-generated method stub
+		return pedD_rep.selectTotalProductos();
+	}
+
 
 	
 

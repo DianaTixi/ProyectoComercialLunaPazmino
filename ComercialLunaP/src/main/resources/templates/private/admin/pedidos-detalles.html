@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Sample title - Ecommerce admin dashboard template</title>
+    <title>Pedido Detalle</title>
 
     <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -17,8 +17,8 @@
     <link href="../../css/ui1.css?v=1.1?v=1.0" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1?v=1.0" rel="stylesheet" />
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	
 
 </head>
 
@@ -123,44 +123,8 @@
     </aside>
 
     <main class="main-wrap">
-
-        <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-                    </div>
-                    <datalist id="search_terms">
-          <option value="Products">
-          <option value="New orders">
-          <option value="Apple iphone">
-          <option value="Ahmed Hassan">
-        </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> English </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">Mi Perfil</a>
-                            <a class="dropdown-item" href="#">Configuraciones</a>
-                            <a class="dropdown-item text-danger" href="#">Salir</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <header class="main-header navbar">
+            
         </header>
 
         <section class="content-main">
@@ -184,11 +148,10 @@
                         	<input  id="prodId" name="id" type="hidden" th:value="${cabecera.id}">
                        		<select name="estado" class="form-select d-inline-block" style="max-width: 200px">
 			                  <option>Cambiar Estado</option>
-			                  <option value="C">Cancelado</option>
-			                  <option value="E" >Entregado</option>
+			                  <option value="E" >Procesado</option>
 			                  <option value="P" >Pendiente</option>
 			                </select>
-			                <input type="submit" value="Guardar" class="btn btn-light" />
+			                <input type="submit" value="Guardar" class="btn btn-primary" />
                       	</form>
                         </div>
                     </div>
@@ -200,12 +163,12 @@
                         <div class="col-md-4">
                             <article class="icontext align-items-start">
                                 <span class="icon icon-sm rounded-circle bg-primary-light">
-                    <i class="text-primary material-icons md-person"></i>
-                  </span>
+                    				<i class='fas fa-user-circle' style='font-size:36px'></i>
+                  				</span>
                                 <div class="text">
                                     <h6 class="mb-1">Cliente</h6>
                                     <p  class="mb-1"th:text = "${cliente.nombres} + ' '+ ${cliente.apellidos}" > </p>
-                                    <p  class="mb-1"th:text = "${cliente.email}" > </p>
+                                    <p  class="mb-1" th:text = "${cliente.email}" > </p>
                                     <p  class="mb-1"th:text = "${cliente.telefono}" > </p>
                                     
                                 </div>
@@ -215,7 +178,7 @@
                         <div class="col-md-4">
                             <article class="icontext align-items-start">
                                 <span class="icon icon-sm rounded-circle bg-primary-light">
-                    <i class="text-primary material-icons md-local_shipping"></i>
+                    <i class="fa fa-align-justify" style="font-size:36px;"></i>
                   </span>
                                 <div class="text">
                                     <h6 class="mb-1">Pedido Informacion</h6>
@@ -236,7 +199,7 @@
                         <div class="col-md-4">
                             <article class="icontext align-items-start">
                                 <span class="icon icon-sm rounded-circle bg-primary-light">
-                    <i class="text-primary material-icons md-place"></i>
+                    <i class='fas fa-truck' style='font-size:36px'></i>
                   </span>
                                 <div class="text">
                                     <h6 class="mb-1">Entregar a </h6>
@@ -277,12 +240,7 @@
     										<span th:if="${cabecera.pago} eq 'D'"><b th:text="${pedidoDC.producto.precioD}"></b></span>
 		                                    </td>
 		                                    <td th:text="${pedidoDC.cantidad}"></td>
-		                                    <td>
-		                                    <span th:if="${cabecera.pago} eq 'C'"><b th:text="${pedidoDC.producto.precioC} * ${pedidoDC.cantidad} "></b></span>
-    										<span th:if="${cabecera.pago} eq 'D'"><b th:text="${pedidoDC.producto.precioD} * ${pedidoDC.cantidad} "></b></span>
-		                                 
-		                                    </td>
-		                                    
+		                                    <td th:text="${pedidoDC.subtotal}"> </td>
                                 		</tr>
                                         <tr >
                                             <td colspan="4">
@@ -305,7 +263,7 @@
                                                         <dt class="text-muted">Estado:</dt>
                                                         <dd>
                                                             <span th:if="${cabecera.estado} eq 'P'"  class="badge rounded-pill alert-warning">Pendiente</span>
-    														<span th:if="${cabecera.estado} eq 'E'" class="badge rounded-pill alert-success">Entregado</span>
+    														<span th:if="${cabecera.estado} eq 'E'" class="badge rounded-pill alert-success">Procesado</span>
                                                         </dd>
                                                     </dl>
                                                 </article>
@@ -332,10 +290,13 @@
                             </div>
                             
                             <div class="h-25 pt-4">
-                                <div class="mb-3">
-                                    <textarea class="form-control" name="notes" id="notes" placeholder="Observaciones"></textarea>
+                            <form th:action="@{/home-admin/obsPedidoC}" method="POST" >
+                        	<input  id="prodId" name="id" type="hidden" th:value="${cabecera.id}">
+                 				<div class="mb-3">
+                                    <textarea th:text = "${cabecera.observaciones}" class="form-control" name="observaciones" id="notes" placeholder="Observaciones"></textarea>
                                 </div>
-                                <button class="btn btn-primary">Guardar </button>
+                                <input type="submit" value="Guardar" class="btn btn-primary" />
+                      		</form>
                             </div>
                         </div>
                         <!-- col// -->

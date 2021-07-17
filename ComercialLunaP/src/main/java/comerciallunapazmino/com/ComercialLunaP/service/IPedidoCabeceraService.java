@@ -11,8 +11,11 @@ public interface IPedidoCabeceraService  {
 	List<PedidosCabeceras> listar();
 	PedidosCabeceras buscarPedidosCPorID(int id_pedC);
 	void editar (int id_pedC, char estado);
+	void agregarObservaciones (int id_pedC, String observaciones);
 	Page<PedidosCabeceras> listRecientes() ;
 	long TotalOrdenes();
 	double TotalPedidos();
 	List<PedidosCabeceras> pedidosPorPersona(int id_per);
+	Page <PedidosCabeceras> findPaginated (int pageNo, int pageSize);
+	float Total();
 }

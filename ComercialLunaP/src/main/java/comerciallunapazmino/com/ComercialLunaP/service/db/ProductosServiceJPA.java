@@ -98,5 +98,16 @@ public class ProductosServiceJPA implements IProductoService {
 		// TODO Auto-generated method stub
 		return  null; //pro_rep.findAll(page);
 	}
+
+	@Override
+	public Page<Productos> findPaginated(int pageNo, int pageSize) {
+		org.springframework.data.domain.Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return pro_rep.findAll(pageable);
+	}
+
+	@Override
+	public List<Productos> busqueda(String nombre,String codigo) {
+		return pro_rep.findByNombreLikeOrCodigo(nombre , codigo);
+	}
 	
 }

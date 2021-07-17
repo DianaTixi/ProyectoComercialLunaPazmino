@@ -1,4 +1,5 @@
 package comerciallunapazmino.com.ComercialLunaP.modelo;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,6 +31,7 @@ public class Productos {
 	private String color;
 	private int stock;
 	private Double descuento;
+	private Date fecha;
 	
 	
 	@ManyToOne
@@ -44,29 +46,33 @@ public class Productos {
 	private Set<Imagenes> imagenes;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+	private Set<Favoritos> favoritos;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
 	private Set<PedidosDetalles> pedidosDetalles;
 
 	public Productos() {
 		super();
 	}
 
-	public Productos(int id, String codigo, String nombre, String descripcion, Double precioC, Double precioD,
-			Double ancho, Double alto, Double profundidad, String color, int stock, Double descuento, char estado,
+	public Productos(int id, String codigo, String nombre, String descripcion, char estado, Double ancho, Double alto,
+			Double profundidad, Double precioC, Double precioD, String color, int stock, Double descuento, Date fecha,
 			SubCategorias subcategoria, Marcas marca) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.precioC = precioC;
-		this.precioD = precioD;
+		this.estado = estado;
 		this.ancho = ancho;
 		this.alto = alto;
 		this.profundidad = profundidad;
+		this.precioC = precioC;
+		this.precioD = precioD;
 		this.color = color;
 		this.stock = stock;
 		this.descuento = descuento;
-		this.estado = estado;
+		this.fecha = fecha;
 		this.subcategoria = subcategoria;
 		this.marca = marca;
 	}
@@ -211,6 +217,21 @@ public class Productos {
 
 	public void setPedidosDetalles(Set<PedidosDetalles> pedidosDetalles) {
 		this.pedidosDetalles = pedidosDetalles;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public Set<Favoritos> getFavoritos() {
+		return favoritos;
+	}
+
+	public void setFavoritos(Set<Favoritos> favoritos) {
+		this.favoritos = favoritos;
 	}
 
 	@Override

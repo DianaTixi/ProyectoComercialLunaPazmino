@@ -21,7 +21,6 @@ public class Categorias {
 	char estado;
 	String descripcion;
 	
-	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
 	private Set<SubCategorias> subcategoria ;
 

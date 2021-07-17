@@ -24,10 +24,13 @@ public class Personas {
 	String email;
 	String contrasena;
 	char rol;
-	char estado;
+	int estatus;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
 	private Set<PedidosCabeceras> pedidosCabeceras ;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+	private Set<Favoritos> favoritos;
 	
 	public Personas() {
 		super();
@@ -36,7 +39,7 @@ public class Personas {
 	
 
 	public Personas(int id, String cedula, String nombres, String apellidos, String telefono, String email,
-			String contrasena, char rol, char estado) {
+			String contrasena, char rol, int estatus) {
 		super();
 		this.id = id;
 		this.cedula = cedula;
@@ -46,8 +49,19 @@ public class Personas {
 		this.email = email;
 		this.contrasena = contrasena;
 		this.rol = rol;
-		this.estado = estado;
+		this.estatus = estatus;
 	}
+
+
+	public int getEstatus() {
+		return estatus;
+	}
+
+
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
+	}
+
 
 	public int getId() {
 		return id;
@@ -113,14 +127,6 @@ public class Personas {
 		this.rol = rol;
 	}
 
-	
-	public char getEstado() {
-		return estado;
-	}
-
-	public void setEstado(char estado) {
-		this.estado = estado;
-	}
 
 	public Set<PedidosCabeceras> getPedidosCabeceras() {
 		return pedidosCabeceras;
@@ -130,5 +136,16 @@ public class Personas {
 		this.pedidosCabeceras = pedidosCabeceras;
 	}
 
+
+	public Set<Favoritos> getFavoritos() {
+		return favoritos;
+	}
+
+
+	public void setFavoritos(Set<Favoritos> favoritos) {
+		this.favoritos = favoritos;
+	}
+
+	
 
 }

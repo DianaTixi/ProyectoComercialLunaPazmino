@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Sample title - Ecommerce admin dashboard template</title>
+    <title>Pedidos</title>
 
     <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -122,46 +122,10 @@
     </aside>
 
     <main class="main-wrap">
-
-        <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-                    </div>
-                    <datalist id="search_terms">
-				  <option value="Products">
-				  <option value="New orders">
-				  <option value="Apple iphone">
-				  <option value="Ahmed Hassan">
-				</datalist>
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> English </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">Mi Perfil</a>
-                            <a class="dropdown-item" href="#">Configurar</a>
-                            <a class="dropdown-item text-danger" href="#">Salir</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <header class="main-header navbar">
+           
         </header>
-
+        
         <section class="content-main">
 
             <div class="content-header">
@@ -176,24 +140,13 @@
                 <header class="card-header">
                     <div class="row gx-3">
                         <div class="col-lg-4 col-md-6 me-auto">
-                            <input type="text" placeholder="Search..." class="form-control">
-                        </div>
-                        <div class="col-lg-2 col-6 col-md-3">
                             <select class="form-select">
-							<option>Estado</option>
-							<option>Recibido</option>
+							<option></option>
+							<option>Procesado</option>
 							<option>Pendiente </option>
-							<option>Cancelado</option>
-                            <option>Todos</option>
 						</select>
                         </div>
-                        <div class="col-lg-2 col-6 col-md-3">
-                            <select class="form-select">
-							<option>Mostra 20</option>
-							<option>Mostrar 30</option>
-							<option>Mostrar 40</option>
-						</select>
-                        </div>
+                        
                     </div>
                 </header>
                 <!-- card-header end// -->
@@ -216,7 +169,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               <tr th:each= "pedidosL: ${listarPedidosC}"> 
+                               <tr th:each= "pedidosL: ${listaPed}"> 
                                     <td th:text="${pedidosL.id}"></td>
                                     <td th:text="${pedidosL.orden}"></td>
                                     <td th:text="${pedidosL.fecha}"></td>
@@ -234,7 +187,7 @@
                                     </td>
                                     <td >
 	                                    	<span th:if="${pedidosL.estado} eq 'P'"  class="badge rounded-pill alert-warning">Pendiente</span>
-    										<span th:if="${pedidosL.estado} eq 'E'" class="badge rounded-pill alert-success">Entregado</span>
+    										<span th:if="${pedidosL.estado} eq 'E'" class="badge rounded-pill alert-success">Procesado</span>
                                     </td>
                                     
                                      <td class="text-end">
@@ -245,6 +198,25 @@
                             </tbody>
                         </table>
                     </div>
+                    <div th:if = "${totalPages > 1}" class="float-end mt-3">
+						<ul class="pagination" >
+							<div class="page-link">
+								<a class="page-link" th:if="${currentPage <= totalPages}" th:href="@{'/home-admin/pagePedidosC/' + ${currentPage -1}}">Anterior</a>
+								<span class="page-link" th:unless="${currentPage <= totalPages}">Anterior</span>
+							</div>
+				
+							<div class="pagination">
+								<span class="page-link" th:each="i: ${#numbers.sequence(1, totalPages)}">
+									<a class="page-link" th:if="${currentPage != i}" th:href="@{'/home-admin/pagePedidosC/' + ${i}}">[[${i}]]</a>
+									<span class="page-link" th:unless="${currentPage != i}">[[${i}]]</span>
+								</span>
+							</div>
+							<div class="page-link">
+								<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/home-admin/pagePedidosC/' + ${currentPage + 1}}">Siguiente</a>
+								<span class="page-link" th:unless="${currentPage < totalPages}">Siguiente</span>
+							</div>
+						</ul>
+					</div>
                     <!-- table-responsive //end -->
                 </div>
                 <!-- card-body end// -->

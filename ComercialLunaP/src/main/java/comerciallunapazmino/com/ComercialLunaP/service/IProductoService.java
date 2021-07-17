@@ -21,5 +21,8 @@ public interface IProductoService{
 	Page<Productos> paginacionProductos(int pages);
 	
 	Page<Productos> bucarTodos(Pageable page);
+	Page <Productos> findPaginated (int pageNo , int pageSize);
+	
+	List<Productos> busqueda (String nombre, String codigo);
 
 }

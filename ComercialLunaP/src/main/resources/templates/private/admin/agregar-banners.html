@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Categorias</title>
+    <title>Banners</title>
 
     <link href="../../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -16,9 +16,6 @@
     <!-- custom style -->
     <link href="../../css/ui1.css?v=1.1" rel="stylesheet" type="text/css" />
     <link href="../../css/responsive1.css?v=1.1" rel="stylesheet" />
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 </head>
 
@@ -96,6 +93,15 @@
                         <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
                     </div>
                 </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                    <div class="submenu">
+                        <a th:href="@{/home-admin/registrarEmpleados}">Agregar Banner</a>
+                        <a th:href="@{/home-admin/listarEmpleados}">Cambiar Banner</a>
+                        <a th:href="@{/home-admin/listarClientes}">Listar Banners</a>
+                    </div>
                 </li>
             </ul>
             <hr>
@@ -126,60 +132,80 @@
     <header class="main-header navbar">
            
         </header>
-
-        <section class="content-main">
+         <section class="content-main">
 
             <div class="content-header">
-                <h2 class="content-title">Categorias</h2>
-                <!-- 
-                <div>
-                    <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Cre</a>
-                </div>-->
+                <h2 class="content-title">Banners </h2>
             </div>
 
-            <div class="card mb-4">
-                
-                <!-- card-header end// -->
+            <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Descripcion</th>
-                                    <th scope="col" class="text-end">Subcategorias</th>
-                                    <th scope="col" class="text-end"> Eliminar </th>
-                                    
+                    <div class="row">
+                    <aside class="col-lg-3">
+                            <div class="box bg-light" style="min-height:80%" enctype="multipart/form-data" >
+                                <form th:action="@{/home-admin/editarBanner}" method="POST" enctype="multipart/form-data"  >
+                    
+                    	<div class="mb-3">
+                            <label class="form-label">Imagen 1</label>
+                            <input class="form-control" type="file" name="imagen1"  >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen 2</label>
+                            <input class="form-control" type="file" name="imagen2" >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen 3</label>
+                            <input class="form-control" type="file" name="imagen3" >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen 4</label>
+                            <input class="form-control" type="file" name="imagen4"  >
+                        </div>
+                        <!-- form-group  .// -->
+                        <div class="mb-4">
+                            <input type="submit" value="Guardar" class="btn btn-primary w-100" /> 
+                        </div>
+                        <!-- form-group// -->
+                        </form>
+                            </div>
+                        </aside>
+                        <div class="col-lg-9">
+                            
+                            <!-- card-header end// -->
+                            <div class="table-responsive">
+                    
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen 1</th>
+                                        <th>Imagen 3</th>
+                                        <th>Imagen 2</th>
+                                        <th>Imagen 4</th>
+                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each= "imageL: ${listaBanners}">
+                                        <td><img th:src="@{/imagenes/{img} (img=${imageL.url1} ) }" width="136" height="136" > </td>
+                                        <td><img th:src="@{/imagenes/{img} (img=${imageL.url2} ) }" width="136" height="136" > </td>
+                                        <td><img th:src="@{/imagenes/{img} (img=${imageL.url3} ) }" width="136" height="136" > </td>
+                                        <td><img th:src="@{/imagenes/{img} (img=${imageL.url4} ) }" width="136" height="136" > </td>
+                                        
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each= "categoriaL: ${listarCategorias}"> 
-                                    <td th:text="${categoriaL.id}"></td>
-                                    <td th:text="${categoriaL.nombre}"></td>
-                                    <td >
-	                                    	<span th:if="${categoriaL.estado} eq 'I'" class="badge rounded-pill alert-danger">Inactivo</span>
-    										<span th:if="${categoriaL.estado} eq 'A'" class="badge rounded-pill alert-success">Activo</span>
-                                    </td>
-                                    <td th:text="${categoriaL.descripcion}"></td>
-                                    <td class="text-end">
-                                        <a th:href="@{/home-admin/verSubcategorias(id=${categoriaL.id})}" class="btn btn-success" role="button" title="Detalles"><i class="fa fa-plus-square" aria-hidden="true"></i></i></a>
-                                    </td>
-                                    <td class="text-end">
-                                        <a th:href="@{/home-admin/delete(id=${categoriaL.id})}" class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro?')" title="Eliminar Registro"><i class="fa fa-trash-o" style="font-size:18px"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- table-responsive.// -->
+                        </div>
+                        
+                        <!-- col // -->
                     </div>
-                    <!-- table-responsive //end -->
+                    <!-- row // -->
                 </div>
-                <!-- card-body end// -->
+                <!-- card-body // -->
             </div>
-            <!-- card end// -->
-
-        </section>
+            <!-- card .// -->
+        </section>           
         <!-- content-main end// -->
     </main>
 

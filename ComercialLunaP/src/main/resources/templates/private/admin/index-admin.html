@@ -61,7 +61,7 @@
                     </a>
                     <div class="submenu">
                     	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
-                        <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
+                        <a th:href="@{/home-admin/pageImagenes}" >Productos - Imagenes</a>
                         <a th:href="@{/home-admin/pageProductos}">Listar Productos</a>
                         <a th:href="@{/home-admin/productosBloqueados}">Desbloquear Productos</a>
                         
@@ -72,7 +72,7 @@
                         <span class="text">Pedidos</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/listarPedidos}">Lista de Pedidos</a>
+                        <a th:href="@{/home-admin/pagePedidos}">Lista de Pedidos</a>
                         <!--  <a href="listar-pedidos2.html">Buscar Pedidos</a> -->
                         <a th:href="@{/home-admin/listarDetalles}">Pedidos Detalle</a>
                     </div>
@@ -97,6 +97,15 @@
                         <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
                     </div>
                 </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                    <div class="submenu">
+                        <a th:href="@{/home-admin/agregarBanners}">Agregar Banner</a>
+                        <a th:href="@{/home-admin/listarEmpleados}">Cambiar Banner</a>
+                        <a th:href="@{/home-admin/listarClientes}">Listar Banners</a>
+                    </div>
                 </li>
             </ul>
             <hr>
@@ -124,45 +133,10 @@
     </aside>
 
     <main class="main-wrap">
-        <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-                    </div>
-                    <datalist id="search_terms">
-				  <option value="Products">
-				  <option value="New orders">
-				  <option value="Apple iphone">
-				  <option value="Ahmed Hassan">
-				</datalist>
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> English </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="../../images/people/avatar1.jpg" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">My profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <a class="dropdown-item text-danger" href="#">Exit</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <header class="main-header navbar">
+           
         </header>
-
+      
         <section class="content-main">
             <div class="content-header">
                 <h4 class="content-title"> Inicio </h4>
@@ -178,7 +152,7 @@
                         <article class="icontext">
                             <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
                             <div class="text">
-                                <h6 class="mb-1">Total Ventas</h6> <span>$19,626,058.20</span>
+                                <h6 class="mb-1">Total Ventas</h6> <span>$[[${total}]]</span>
                             </div>
                         </article>
 
@@ -203,7 +177,7 @@
                         <article class="icontext">
                             <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-shopping_basket"></i></span>
                             <div class="text">
-                                <h6 class="mb-1">Total Productos</h6> <span>5678</span>
+                                <h6 class="mb-1">Total Productos</h6> <span>[[${proVendidos}]]</span>
                             </div>
                         </article>
                     </div>
@@ -215,7 +189,6 @@
 
 
             <div class="row">
-                <div class="col-xl-8 col-lg-12">
                     <div class="card mb-4">
                         <article class="card-body">
                             <h5 class="card-title">Estadisticas de Ventas</h5>
@@ -224,42 +197,7 @@
                         <!-- card-body end// -->
                     </div>
                     <!-- card end// -->
-                </div>
-                <!-- col end// -->
-                <div class="col-xl-4 col-lg-12">
-                    <div class="card mb-4">
-                        <article class="card-body">
-
-                            <h5 class="card-title">Marketing</h5>
-
-
-                            <span class="text-muted">Facebook</span>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 15%">15%</div>
-                            </div>
-
-                            <span class="text-muted">Instagram</span>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 65%">65% </div>
-                            </div>
-
-                            <span class="text-muted">Google</span>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 51%"> 51% </div>
-                            </div>
-
-
-                            <span class="text-muted">Other links</span>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 80%"> 80%</div>
-                            </div>
-                            <br>
-                            <a href="#" class="btn btn-light">Open analytics <i class="material-icons md-open_in_new"></i> </a>
-                        </article>
-                        <!-- card-body end// -->
-                    </div>
-                    <!-- card end// -->
-                </div>
+                
                 <!-- col end// -->
             </div>
             <!-- row end// -->
@@ -304,11 +242,11 @@
                                     </td>
                                     <td >
 	                                    	<span th:if="${pedidosL.estado} eq 'P'"  class="badge rounded-pill alert-warning">Pendiente</span>
-    										<span th:if="${pedidosL.estado} eq 'E'" class="badge rounded-pill alert-success">Entregado</span>
+    										<span th:if="${pedidosL.estado} eq 'E'" class="badge rounded-pill alert-success">Procesado</span>
                                     </td>
                                     
                                      <td class="text-end">
-                                        <a th:href="@{/home-admin/verDetalle(id=${pedidosL.id})}" class="btn btn-success" role="button" title="Detalles"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                        <a th:href="@{/home-admin/verDetalle/{id} (id=${pedidosL.id})}" class="btn btn-success" role="button" title="Detalles"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
                                     </td>
                                     
                                 </tr>

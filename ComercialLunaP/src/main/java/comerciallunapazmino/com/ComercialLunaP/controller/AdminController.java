@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import comerciallunapazmino.com.ComercialLunaP.modelo.Banners;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Categorias;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Imagenes;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Marcas;
@@ -35,6 +36,7 @@ import comerciallunapazmino.com.ComercialLunaP.modelo.PedidosDetalles;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Personas;
 import comerciallunapazmino.com.ComercialLunaP.modelo.Productos;
 import comerciallunapazmino.com.ComercialLunaP.modelo.SubCategorias;
+import comerciallunapazmino.com.ComercialLunaP.service.IBannerService;
 import comerciallunapazmino.com.ComercialLunaP.service.ICategoriaService;
 import comerciallunapazmino.com.ComercialLunaP.service.IImagenService;
 import comerciallunapazmino.com.ComercialLunaP.service.IMarcaService;
@@ -73,21 +75,22 @@ public class AdminController {
 	@Autowired
 	public IImagenService serImagen;
 	
-	
-	
+	@Autowired
+	public IBannerService serBanner;
+		
 	@RequestMapping(value = "/index", method=RequestMethod.GET)
 	public String index(Model model) {
 		Page<PedidosCabeceras> pedidos = serPedidoC.listRecientes();
 		model.addAttribute("pedidosR", pedidos);
 		long totalOrd = serPedidoC.TotalOrdenes();
 		model.addAttribute("totalOrd", totalOrd);
+		float total = serPedidoC.Total();
+		model.addAttribute("total", total);
+		int proVendidos = serPedidoD.TotalProductosVendidos();
+		model.addAttribute("proVendidos", proVendidos);
 		return "private/admin/index-admin";
 	}
 
-	
-	//Lista de los ultimos pedidos 
-	
-	
 	@GetMapping("/crearCategoria")
 	public String createC(Model model) {
 		return "private/admin/agregar-categoria";
@@ -210,22 +213,15 @@ public class AdminController {
 		return "private/admin/listar-productoDetalle";
 	}
 	
-	/*
-	@RequestMapping(value="/saveProducto", method=RequestMethod.POST)
-	public String savePro(Productos producto ) {
-		
-		System.out.println(producto);
-		return "private/admin/index-admin";
-	}
-	*/
 	@RequestMapping(value="/saveProducto", method=RequestMethod.POST)
 	public String savePro(@RequestParam ("nombre") String nombre, @RequestParam ("codigo") String codigo, @RequestParam ("descripcion") String descripcion, @RequestParam ("estado") String estado, 
 						@RequestParam ("alto") String alto , @RequestParam ("ancho") String ancho, @RequestParam ("profundidad") String profundidad, @RequestParam ("stock") String stock, 
 						@RequestParam ("descuento") String descuento, @RequestParam ("precioC") String precioC,@RequestParam ("precioD") String precioD, @RequestParam ("color") String color, 
-						@RequestParam ("categoria") String categoria, @RequestParam ("subcategoria") String subcategoria, @RequestParam ("marca") String marca, @RequestParam ("imagen") MultipartFile multiPart , @RequestParam ("id") String id) {
-		System.out.println( id +""+ nombre +" "+ codigo +" " + descripcion + "-"+ estado +" "+ alto +" " + ancho + "-"+ profundidad+ " " + stock + " "+ descuento + "" +precioC +" "+ precioD +" " + color + "-"+ categoria +" "+ subcategoria + " "+ marca);
+						@RequestParam ("categoria") String categoria, @RequestParam ("subcategoria") String subcategoria, @RequestParam ("marca") String marca, 
+						@RequestParam ("imagen") MultipartFile multiPart ) {
+		System.out.println(nombre +" "+ codigo +" " + descripcion + "-"+ estado +" "+ alto +" " + ancho + "-"+ profundidad+ " " + stock + " "+ descuento + "" +precioC +" "+ precioD +" " + color + "-"+ categoria +" "+ subcategoria + " "+ marca);
+		Date date = new Date();
 		Productos pro = new Productos();
-		pro.setId(Integer.parseInt(id));
 		pro.setCodigo(codigo);
 		pro.setNombre(nombre);
 		pro.setDescripcion(descripcion);
@@ -238,6 +234,7 @@ public class AdminController {
 		pro.setDescuento(Double.valueOf(descuento));
 		pro.setColor(color);
 		pro.setEstado(estado.charAt(0));
+		pro.setFecha(new Date());
 		SubCategorias subcat = new SubCategorias();
 		int id_subcat=Integer.parseInt(subcategoria); 
 		subcat.setId(id_subcat);
@@ -256,7 +253,7 @@ public class AdminController {
 				Imagenes img = new Imagenes();
 				img.setUrl(nombreImagen);
 				img.setProducto(pro);
-				System.out.println(nombreImagen);
+				System.out.println(" Nombre Nuevo: " +nombreImagen);
 				serImagen.guardar(img);
 				}
 			}
@@ -268,8 +265,60 @@ public class AdminController {
 	public String editarProducto(@PathVariable("id") int idPro, Model model) {
 		Productos producto = serProductos.buscarProductoPorID(idPro);
 		model.addAttribute("producto", producto);
-		System.out.println(producto.getNombre()+ producto.getCodigo());
+		Imagenes img = serImagen.buscarPorProducto(idPro);
+		model.addAttribute("imagen", img);
+		System.out.println("Producto: " + producto.getId()+ producto.getNombre()+ producto.getCodigo()+ "Id de la Imagen: "+ img.getProducto().getId());
 		return "private/admin/editar-producto";
+	}
+	
+	
+	@RequestMapping(value="/editProducto", method=RequestMethod.POST)
+	public String editProducto(@RequestParam ("nombre") String nombre, @RequestParam ("codigo") String codigo, @RequestParam ("descripcion") String descripcion, @RequestParam ("estado") String estado, 
+						@RequestParam ("alto") String alto , @RequestParam ("ancho") String ancho, @RequestParam ("profundidad") String profundidad, @RequestParam ("stock") String stock, 
+						@RequestParam ("descuento") String descuento, @RequestParam ("precioC") String precioC,@RequestParam ("precioD") String precioD, @RequestParam ("color") String color, 
+						@RequestParam ("categoria") String categoria, @RequestParam ("subcategoria") String subcategoria, @RequestParam ("marca") String marca, 
+						@RequestParam ("imagen") MultipartFile multiPart, @RequestParam ("id") String id_pro, @RequestParam ("id_img") String id_img) {
+		System.out.println(nombre +" "+ codigo +" " + descripcion + "-"+ estado +" "+ alto +" " + ancho + "-"+ profundidad+ " " + stock + " "+ descuento + "" +precioC +" "+ precioD +" " + color + "-"+ categoria +" "+ subcategoria + " "+ marca);
+		Date date = new Date();
+		Productos pro = new Productos();
+		pro.setId(Integer.parseInt(id_pro));
+		pro.setCodigo(codigo);
+		pro.setNombre(nombre);
+		pro.setDescripcion(descripcion);
+		pro.setPrecioC(Double.valueOf(precioC));
+		pro.setPrecioD(Double.valueOf(precioD));
+		pro.setAncho(Double.valueOf(ancho));
+		pro.setAlto(Double.valueOf(alto));
+		pro.setProfundidad(Double.valueOf(profundidad));
+		pro.setStock(Integer.parseInt(stock));
+		pro.setDescuento(Double.valueOf(descuento));
+		pro.setColor(color);
+		pro.setEstado(estado.charAt(0));
+		pro.setFecha(new Date());
+		SubCategorias subcat = new SubCategorias();
+		int id_subcat=Integer.parseInt(subcategoria); 
+		subcat.setId(id_subcat);
+		pro.setSubcategoria(subcat);
+		Marcas mar = new Marcas();
+		int id_mar=Integer.parseInt(marca);
+		mar.setId(id_mar);
+		pro.setMarca(mar);
+		serProductos.guardar(pro);
+		
+		if (!multiPart.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+				if (nombreImagen != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				Imagenes img = new Imagenes();
+				img.setId(Integer.parseInt(id_img));
+				img.setUrl(nombreImagen);
+				img.setProducto(pro);
+				System.out.println(" Nombre Nuevo: " +nombreImagen);
+				serImagen.guardar(img);
+				}
+			}
+		return "private/admin/index-admin";
 	}
 	
 	//Metodo para eliminar productos
@@ -305,14 +354,38 @@ public class AdminController {
 		return "private/admin/buscar-productos" ;	
 	}
 	
+	@RequestMapping(value="/busquedaProducto", method=RequestMethod.POST)
+	public String busquedaNombre(@RequestParam ("nombre") String nombre, Model model) {
+		System.out.println("Busqueda por :" + nombre);
+		String codigo = nombre;
+		List<Productos> listaProductos = serProductos.busqueda(nombre, codigo);
+		model.addAttribute("productos", listaProductos);
+		return "private/admin/tabla-productos";
+		
+	}
+	
 	//Listar Por Paginacion
 	@GetMapping("/pageProductos")
 	public String pageProductos( Model model ) {
-		
-		Page<Productos> lista = serProductos.paginacionProductos(0);
-		model.addAttribute("pageProductos", lista);
+		findPaginated(1, model);
 		return "private/admin/tabla-productos";
 		
+	}
+	
+	//Lista por Paginacion 
+	@GetMapping("/page/{pageNo}")
+	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=2;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<Productos> page = serProductos.findPaginated(pageNo, pageSize);
+		List<Productos> listaProductos = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("productos", listaProductos);	
+		return "private/admin/tabla-productos";
 	}
 	
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PRODUCTO - Imagenes //////////////////////////////
@@ -322,14 +395,73 @@ public class AdminController {
 		model.addAttribute("listaI", listaI);
 		return "private/admin/imagenes-productos";	
 	}
+	
+	//Listar Por Paginacion
+	@GetMapping("/pageImagenes")
+	public String pageImagenes( Model model ) {
+		paginacionImg(1, model);
+		return "private/admin/imagenes-productos";
+		
+	}
+		
+	//Lista por Paginacion 
+	@GetMapping("/pageImage/{pageNo}")
+	public String paginacionImg(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=5;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<Imagenes> page = serImagen.findPaginated(pageNo, pageSize);
+		List<Imagenes> listaImagenes = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("imagenes", listaImagenes);	
+		return "private/admin/imagenes-productos";
+	}
 		
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE PEDIDOS //////////////////////////////
 	
-	@RequestMapping(value = "/listarPedidos", method=RequestMethod.GET)
+	@GetMapping("/pagePedidos")
 	public String listarPedidos(Model model) {
-		List<PedidosCabeceras> listaPC = serPedidoC.listar();
-		model.addAttribute("listarPedidosC", listaPC);
+		findPaginatedPedidos(1, model);
 		return "private/admin/listar-pedidos1";	
+	}
+
+	//Lista por Paginacion 
+	@GetMapping("/pagePedidosC/{pageNo}")
+	public String findPaginatedPedidos(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=2;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<PedidosCabeceras> page = serPedidoC.findPaginated(pageNo, pageSize);
+		List<PedidosCabeceras> listaPedidos = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("listaPed", listaPedidos);	
+		return "private/admin/listar-pedidos1";
+	}
+	
+	//Cambiar Estado Pedido Cabecera
+	@RequestMapping(value="/editarPedidoC", method=RequestMethod.POST)
+	public String editarPedidoC(@RequestParam ("id") String id, @RequestParam ("estado") String estado) {
+		System.out.println("Id = " + id + " Nuevo Estado= " + estado);
+		
+		int id_ped = Integer.parseInt(id);
+		char estad = estado.charAt(0);
+		serPedidoC.editar(id_ped, estad);
+		
+		return "redirect:/home-admin/pagePedidos" ;
+		
+	}
+	@RequestMapping(value="/obsPedidoC", method=RequestMethod.POST)
+	public String observacionesPedidoC(@RequestParam ("id") String id, @RequestParam ("observaciones") String observaciones) {
+		System.out.println("Id = " + id + " Observaciones= " + observaciones);
+		int id_ped = Integer.parseInt(id);
+		serPedidoC.agregarObservaciones(id_ped, observaciones);
+		return "redirect:/home-admin/pagePedidos" ;
 	}
 	
 	
@@ -353,28 +485,6 @@ public class AdminController {
 		return "private/admin/pedidos-detalles";
 	}
 	
-	//Cambiar Estado Pedido Cabecera
-	@RequestMapping(value="/editarPedidoC", method=RequestMethod.POST)
-	public String editarPedidoC(@RequestParam ("id") String id, @RequestParam ("estado") String estado) {
-		System.out.println("Id = " + id + " Nuevo Estado= " + estado);
-		
-		int id_ped = Integer.parseInt(id);
-		char estad = estado.charAt(0);
-		serPedidoC.editar(id_ped, estad);
-		
-		return "redirect:/home-admin/listarPedidos" ;
-		
-	}
-	
-	//Metodo para Editar un Producto
-		/*@GetMapping("/editarProducto/{id}")
-		public String editarProducto(@PathVariable("id") int idPro, Model model) {
-			Productos producto = serProductos.buscarProductoPorID(idPro);
-			model.addAttribute("producto", producto);
-			System.out.println(producto.getNombre()+ producto.getCodigo());
-			return "private/admin/editar-producto";
-		}
-		*/
 	@RequestMapping(value = "/listarDetalles", method=RequestMethod.GET)
 	public String listarDetalle( Model model) {
 		List<PedidosDetalles> listarDet = serPedidoD.listar();
@@ -421,7 +531,7 @@ public class AdminController {
 		per.setCedula(cedula);
 		per.setContrasena(password);
 		per.setEmail(email);
-		per.setEstado('A');
+		per.setEstatus(1);
 		per.setNombres(nombre);
 		per.setRol('E');
 		per.setTelefono(telefono);
@@ -482,7 +592,93 @@ public class AdminController {
 		model.addAttribute("listarSC", listaSC);
 		model.addAttribute("listarM", listaM);
 		model.addAttribute("listarC", listaC);
+	}
+	
+	
+	//METODOS PARA GESTION BANNERS
+	@RequestMapping(value = "/agregarBanners", method=RequestMethod.GET)
+	public String agregarBanner(Model model) {
+		List<Banners> listaBanners = serBanner.listar();
+		model.addAttribute("listaBanners", listaBanners);
+		return "/private/admin/agregar-banners";	
+	}
+	/*
+	@RequestMapping(value = "/listarDetallesPro", method=RequestMethod.GET)
+	public String listarDetallePro(@RequestParam("id") int id_pro, Model model) {
+		List<Imagenes> listaImg = serImagen.listarPorProducto(id_pro);
+		model.addAttribute("listaImag", listaImg);
+		return "private/admin/listar-productoDetalle";
+	}*/
+	
+	@RequestMapping(value="/saveBanner", method=RequestMethod.POST)
+	public String saveBanner(@RequestParam ("imagen1") MultipartFile multiPart1, @RequestParam ("imagen2") MultipartFile multiPart2,
+			@RequestParam ("imagen3") MultipartFile multiPart3 , @RequestParam ("imagen4") MultipartFile multiPart4) {
 		
+		if (!multiPart1.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String nombreImagen1 = Utileria.guardarArchivo(multiPart1, ruta);
+			String nombreImagen2 = Utileria.guardarArchivo(multiPart2, ruta);
+			String nombreImagen3 = Utileria.guardarArchivo(multiPart3, ruta);
+			String nombreImagen4 = Utileria.guardarArchivo(multiPart4, ruta);
+				if (nombreImagen1 != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				Banners bann = new Banners();
+				bann.setId(1);
+				bann.setUrl1(nombreImagen1);
+				bann.setUrl2(nombreImagen2);
+				bann.setUrl3(nombreImagen3);
+				bann.setUrl4(nombreImagen4);
+				System.out.println(" Nombre Nuevo: " +nombreImagen1);
+				serBanner.guardar(bann);
+				}
+			}
+		return "private/admin/index-admin";
+	}
+	
+	@RequestMapping(value="/editarBanner", method=RequestMethod.POST)
+	public String editarBanner(@RequestParam ("imagen1") MultipartFile multiPart1, @RequestParam ("imagen2") MultipartFile multiPart2,
+			@RequestParam ("imagen3") MultipartFile multiPart3 , @RequestParam ("imagen4") MultipartFile multiPart4) {
+		
+		if (!multiPart1.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String nombreImagen1 = Utileria.guardarArchivo(multiPart1, ruta);
+				if (nombreImagen1 != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				serBanner.cambiarImg1(1, nombreImagen1);
+				System.out.println(" Nombre Nuevo1: " +nombreImagen1);
+				
+				} 
+		}
+		
+		if (!multiPart2.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String nombreImagen2 = Utileria.guardarArchivo(multiPart2, ruta);
+				if (nombreImagen2 != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				serBanner.cambiarImg2(1, nombreImagen2);
+				System.out.println(" Nombre Nuevo2: " +nombreImagen2);
+				}
+		}
+		if (!multiPart3.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			
+			String nombreImagen3 = Utileria.guardarArchivo(multiPart3, ruta);
+				if (nombreImagen3 != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				serBanner.cambiarImg3(1, nombreImagen3);
+				System.out.println(" Nombre Nuevo3: " +nombreImagen3);
+				}
+		}
+		if (!multiPart4.isEmpty()) {
+			String ruta = "C:/Users/Usuario/Documents/ProyectoComercialLunaPazmino/ComercialLunaP/src/main/resources/static/imagenes/"; // Windows
+			String nombreImagen4 = Utileria.guardarArchivo(multiPart4, ruta);
+				if (nombreImagen4 != null){ // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				serBanner.cambiarImg4(1, nombreImagen4);
+				System.out.println(" Nombre Nuevo4: " +nombreImagen4);
+				}
+			}
+		return "private/admin/index-admin";
 	}
 
 }

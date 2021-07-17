@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,33 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 	public List<PedidosCabeceras> pedidosPorPersona(int id_per) {
 		List<PedidosCabeceras> pedidosCabeceras = pedC_rep.findByPersona_id(id_per);
 		return pedidosCabeceras;
+	}
+
+	@Override
+	public Page<PedidosCabeceras> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		
+		return pedC_rep.findAll(pageable);
+	}
+
+	@Override
+	public float Total() {
+		// TODO Auto-generated method stub
+		return pedC_rep.selectTotals();
+	}
+
+	@Override
+	public void agregarObservaciones(int id_pedC, String observaciones) {
+		Optional<PedidosCabeceras> optional = pedC_rep.findById(id_pedC);
+		if (optional.isPresent()) {
+			PedidosCabeceras pedidosC = optional.get();
+			pedidosC.setObservaciones(observaciones);
+			pedC_rep.save(pedidosC);
+			System.out.println("Se agrego las observaciones Correctamente : " + observaciones );
+		}else {
+			System.out.println("Algo ocurrio .. Intente de nuevo ");
+		}
+		
 	}
 
 }

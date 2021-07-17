@@ -1,0 +1,36 @@
+Quitar Marketing del index
+Grafico de estadistica todo el espacio 
+
+Pedidos solo procesado y pendiente 
+Setear observaciones en el mismo cuadro 
+
+Poner iconos en el detalle de pedidos -Cliente-PedidoInfo-entregar
+
+--Productos  --Agregar
+Quitar la barra de busqueda de
+
+--dos decimales en precio diferido lista pedidos
+--Otra busqueda para productos por codigo
+
+Quitar mostar por 20 y estado en todo 
+--Busqueda de pedido por estado  de forma descendiente(fecha)
+-- 
+
+
+--Verificar los links funcionando 100%
+
+
+IMPORTANTE ---QUITAR TODOS LOS SEARCH TERM DE LAS PAGINAS 
+
+TABLA GALERIA 
+ID
+URL
+POSICION (INT)
+
+1 IMG1 IMG2 IMG 3 IMG4 
+
+TABLA BANNERS
+ID
+URL
+POSICION (INT)
+1 IMG1 IMG2 IMG 3 IMG4 

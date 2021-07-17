@@ -17,7 +17,7 @@ public class Utileria {
 		multiPart.transferTo(imageFile);
 		return nombreOriginal;
 		} catch (IOException e) {
-		System.out.println("Error " + e.getMessage());
+		System.out.println("Error Verificar " + e.getMessage());
 		return null;
 		}
 		}
