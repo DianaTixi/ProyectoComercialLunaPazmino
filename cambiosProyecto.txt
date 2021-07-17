@@ -1,0 +1,221 @@
+////////////////////////////////////////CAMBIOS PEDIDOS CABECERAS 
+///Repositorio
+@Query("SELECT SUM(total) FROM PedidosCabeceras")
+	Double selectTotals();
+	
+	@Query("SELECT pedC FROM PedidosCabeceras pedC WHERE (pedC.fecha BETWEEN :fechaI  AND :fechaF)")
+	List<PedidosCabeceras> findByFechaBetween(@Param ("fechaI") Date fechaI, @Param ("fechaF") Date fechaF);
+	
+	List<PedidosCabeceras> findByEstado(char estado);
+
+///Interface 
+void guardar(PedidosCabeceras pedidosC);
+	List<PedidosCabeceras> listar();
+	PedidosCabeceras buscarPedidosCPorID(int id_pedC);
+	void editar (int id_pedC, char estado);
+	void agregarObservaciones (int id_pedC, String observaciones);
+	Page<PedidosCabeceras> listRecientes() ;
+	long TotalOrdenes();
+	double TotalPedidos();
+	List<PedidosCabeceras> pedidosPorPersona(int id_per);
+	Page <PedidosCabeceras> findPaginated (int pageNo, int pageSize);
+	Double TotalVentas();
+	List<PedidosCabeceras> busqueda (Date fechaI, Date fechaF);
+	List<PedidosCabeceras> listarByEstado(char e);
+
+////ServiceJPA
+@Override
+	public long TotalOrdenes() {
+		long cont = pedC_rep.count();
+		if(cont ==0) {
+			return 0;
+		}
+		System.out.println(cont);
+		return cont;
+	}
+
+@Override
+	public Double TotalVentas() {
+		Double total = pedC_rep.selectTotals();
+		System.out.println("Total Efectivo Ventas : " + total);
+		if (total == null ) {
+			return 0.00;
+		}
+		return pedC_rep.selectTotals();
+	}
+
+@Override
+	public void agregarObservaciones(int id_pedC, String observaciones) {
+		Optional<PedidosCabeceras> optional = pedC_rep.findById(id_pedC);
+		if (optional.isPresent()) {
+			PedidosCabeceras pedidosC = optional.get();
+			pedidosC.setObservaciones(observaciones);
+			pedC_rep.save(pedidosC);
+			System.out.println("Se agrego las observaciones Correctamente : " + observaciones );
+		}else {
+			System.out.println("Algo ocurrio .. Intente de nuevo ");
+		}
+		
+	}
+
+
+@Override
+	public List<PedidosCabeceras> busqueda(Date fechaI, Date fechaF) {
+		// TODO Auto-generated method stub
+		return pedC_rep.findByFechaBetween(fechaI, fechaF);
+	}
+
+
+
+@Override
+	public List<PedidosCabeceras> listarByEstado(char e) {
+		// TODO Auto-generated method stub
+		return pedC_rep.findByEstado(e);
+	}
+
+////AdminController
+//Busqueda de Pedidos Por Fecha 
+	@RequestMapping(value="/busquedaFechaPedidos", method=RequestMethod.POST)
+	public String busquedaPorFechaPed(@RequestParam ("fechaI") String fechaI, @RequestParam ("fechaF") String fechaF, Model model) throws ParseException {
+		System.out.println("Busqueda por :" + fechaI + " - " + fechaF);
+		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date fecha1 = formato.parse(fechaI);
+		SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date fecha2 = formato.parse(fechaF);
+		System.out.println("FechaI: " + fecha1 + " Fecha F: " + fecha2);
+		List<PedidosCabeceras> listaPedidos = serPedidoC.busqueda(fecha1, fecha2);
+		model.addAttribute("listaPed", listaPedidos);
+		return "private/admin/listar-pedidos1";
+	}
+
+
+	//Busqueda de Pedidos Por Estado
+	@RequestMapping(value="/busquedaEstadoPedidos", method=RequestMethod.POST)
+	public String busquedaPorEstadoPed(@RequestParam ("estado") String estado, Model model) {
+		
+		char e = estado.charAt(0);
+		System.out.println("Busqueda por Estado :" + estado + "- " +e);
+		if (estado.equals("T")) {
+			return "redirect:/home-admin/pagePedidos" ;
+		}
+		
+		List<PedidosCabeceras> listaPedidos = serPedidoC.listarByEstado(e);
+		model.addAttribute("listaPed", listaPedidos);
+		return "private/admin/listar-pedidos1";
+	}
+
+
+//Metodo para agregar Observaciones
+	@RequestMapping(value="/obsPedidoC", method=RequestMethod.POST)
+	public String observacionesPedidoC(@RequestParam ("id") String id, @RequestParam ("observaciones") String observaciones) {
+		System.out.println("Id = " + id + " Observaciones= " + observaciones);
+		int id_ped = Integer.parseInt(id);
+		serPedidoC.agregarObservaciones(id_ped, observaciones);
+		return "redirect:/home-admin/pagePedidos" ;
+	}
+
+
+////////////////////////////////////////MODIFICACIONES PEDIDOS DETALLES
+////Repositorio
+@Query("SELECT SUM(cantidad) FROM PedidosDetalles")
+	Integer selectTotalProductos();
+
+///Interface 
+Integer TotalProductosVendidos();
+
+////Service JPA
+@Override
+	public Integer TotalProductosVendidos() {
+		// TODO Auto-generated method stub
+		Integer totalPro = pedD_rep.selectTotalProductos();
+		if (totalPro == null) {
+			return 0;
+		}
+		return pedD_rep.selectTotalProductos();
+	}
+
+//////////////////////////////////////// MODIFICACIONES TABLA IMAGENES
+//Interface 
+Page <Imagenes> findPaginated (int pageNo , int pageSize);
+
+///Service JPA
+@Override
+	public Page<Imagenes> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return img_rep.findAll(pageable);
+	}
+
+//Admin Controller
+//Listar Por Paginacion
+	@GetMapping("/pageImagenes")
+	public String pageImagenes( Model model ) {
+		paginacionImg(1, model);
+		return "private/admin/imagenes-productos";
+		
+	}
+		
+	//Lista por Paginacion 
+	@GetMapping("/pageImage/{pageNo}")
+	public String paginacionImg(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=5;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<Imagenes> page = serImagen.findPaginated(pageNo, pageSize);
+		List<Imagenes> listaImagenes = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("imagenes", listaImagenes);	
+		return "private/admin/imagenes-productos";
+	}
+
+//////////////////////////////////////// MODIFICACIONES TABLA PERSONA
+//Interface 
+Page <Personas> findPaginated (int pageNo , int pageSize);
+
+//Service JPA
+@Override
+	public Page<Personas> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return per_rep.findAll(pageable);
+	}
+//Admin-Controller
+@GetMapping("/pageEmpleados")
+	public String listarEmpleado(Model model) {
+		findPaginatedEmpleados(1, model);
+		return "private/admin/listar-empleados";
+	}
+
+	//Lista por Paginacion 
+	@GetMapping("/pageEmpl/{pageNo}")
+	public String findPaginatedEmpleados(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=2;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<Personas> page = serPersonas.findPaginated(pageNo, pageSize);
+		List<Personas> listaEmpleados = serPersonas.listarByRol('E');
+		listaEmpleados = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("listarEmp", listaEmpleados);	
+		return "private/admin/listar-empleados";
+	}
+
+
+--------Admin-Controller
+//Metodo String Index 
+Page<PedidosCabeceras> pedidos = serPedidoC.listRecientes();
+		model.addAttribute("pedidosR", pedidos);
+		long totalOrd = serPedidoC.TotalOrdenes();
+		model.addAttribute("totalOrd", totalOrd);
+		Double total = serPedidoC.TotalVentas();
+		model.addAttribute("total", total);
+		Integer proVendidos = serPedidoD.TotalProductosVendidos();
+		model.addAttribute("proVendidos", proVendidos);
+		return "private/admin/index-admin";
+
+

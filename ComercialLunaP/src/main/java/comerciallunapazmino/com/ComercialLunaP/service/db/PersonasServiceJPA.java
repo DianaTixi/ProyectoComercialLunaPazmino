@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.Personas;
@@ -54,6 +57,12 @@ public class PersonasServiceJPA implements IPersonaService {
 			System.out.println(optional.get()); 
 			}else 
 				System.out.println("No se encontro");
+	}
+
+	@Override
+	public Page<Personas> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return per_rep.findAll(pageable);
 	}
 
 }

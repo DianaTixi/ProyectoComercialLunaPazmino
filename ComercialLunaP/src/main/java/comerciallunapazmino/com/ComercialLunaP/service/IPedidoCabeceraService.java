@@ -1,10 +1,13 @@
 package comerciallunapazmino.com.ComercialLunaP.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.PedidosCabeceras;
+import comerciallunapazmino.com.ComercialLunaP.modelo.Personas;
+import comerciallunapazmino.com.ComercialLunaP.modelo.Productos;
 
 public interface IPedidoCabeceraService  {
 	void guardar(PedidosCabeceras pedidosC);
@@ -18,4 +21,6 @@ public interface IPedidoCabeceraService  {
 	List<PedidosCabeceras> pedidosPorPersona(int id_per);
 	Page <PedidosCabeceras> findPaginated (int pageNo, int pageSize);
 	Double TotalVentas();
+	List<PedidosCabeceras> busqueda (Date fechaI, Date fechaF);
+	List<PedidosCabeceras> listarByEstado(char e);
 }

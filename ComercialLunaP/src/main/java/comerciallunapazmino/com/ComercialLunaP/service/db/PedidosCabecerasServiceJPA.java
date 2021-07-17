@@ -1,5 +1,6 @@
 package comerciallunapazmino.com.ComercialLunaP.service.db;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,15 +94,13 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 
 	@Override
 	public Page<PedidosCabeceras> findPaginated(int pageNo, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize , Sort.by("fecha").descending());
 		
 		return pedC_rep.findAll(pageable);
 	}
 
 	@Override
 	public Double TotalVentas() {
-		// TODO Auto-generated method stub
-		
 		Double total = pedC_rep.selectTotals();
 		System.out.println("Total Efectivo Ventas : " + total);
 		if (total == null ) {
@@ -122,6 +121,18 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 			System.out.println("Algo ocurrio .. Intente de nuevo ");
 		}
 		
+	}
+
+	@Override
+	public List<PedidosCabeceras> busqueda(Date fechaI, Date fechaF) {
+		// TODO Auto-generated method stub
+		return pedC_rep.findByFechaBetween(fechaI, fechaF);
+	}
+
+	@Override
+	public List<PedidosCabeceras> listarByEstado(char e) {
+		// TODO Auto-generated method stub
+		return pedC_rep.findByEstado(e);
 	}
 
 }

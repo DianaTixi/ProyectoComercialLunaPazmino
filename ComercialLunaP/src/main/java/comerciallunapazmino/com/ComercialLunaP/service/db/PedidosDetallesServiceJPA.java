@@ -55,7 +55,4 @@ public class PedidosDetallesServiceJPA implements IPedidoDetalleService {
 		return pedD_rep.selectTotalProductos();
 	}
 
-
-	
-
 }

@@ -57,7 +57,7 @@
                     </a>
                     <div class="submenu">
                     	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
-                        <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
+                        <a th:href="@{/home-admin/pageImagenes}" >Productos - Imagenes</a>
                         <a th:href="@{/home-admin/pageProductos}">Listar Productos</a>
                         <a th:href="@{/home-admin/productosBloqueados}">Desbloquear Productos</a>
                         
@@ -68,7 +68,7 @@
                         <span class="text">Pedidos</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/listarPedidos}">Lista de Pedidos</a>
+                        <a th:href="@{/home-admin/pagePedidos}">Lista de Pedidos</a>
                         <!--  <a href="listar-pedidos2.html">Buscar Pedidos</a> -->
                         <a th:href="@{/home-admin/listarDetalles}">Pedidos Detalle</a>
                     </div>
@@ -78,10 +78,9 @@
                         <span class="text">Cuenta</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/registrarEmpleados}">Registrar - Empleados</a>
-                        <a th:href="@{/home-admin/listarEmpleados}">Listar Empleados</a>
+                        <a th:href="@{/home-admin/registrarEmpl}">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/pageEmpleados}">Listar Empleados</a>
                         <a th:href="@{/home-admin/listarClientes}">Listar Clientes</a>
-                        <a href="page-error-404.html">Error 404</a>
                     </div>
                 </li>
 
@@ -93,6 +92,18 @@
                         <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
                     </div>
                 </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                    <div class="submenu">
+                        <a th:href="@{/home-admin/agregarBanners}">Agregar Banner</a>
+                    </div>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" th:href="@{/home/}" onclick="return confirm('¿Esta seguro que desea Cerrar Sesion?')" > <i class="icon material-icons md-home"></i>
+                        <span class="text">Cerrar Sesion</span>
+                    </a>
                 </li>
             </ul>
             <hr>

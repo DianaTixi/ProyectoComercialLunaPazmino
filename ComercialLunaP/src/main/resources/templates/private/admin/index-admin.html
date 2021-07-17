@@ -82,10 +82,9 @@
                         <span class="text">Cuenta</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/registrarEmpleados}">Registrar - Empleados</a>
-                        <a th:href="@{/home-admin/listarEmpleados}">Listar Empleados</a>
+                        <a th:href="@{/home-admin/registrarEmpl}">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/pageEmpleados}">Listar Empleados</a>
                         <a th:href="@{/home-admin/listarClientes}">Listar Clientes</a>
-                        <a href="page-error-404.html">Error 404</a>
                     </div>
                 </li>
 
@@ -103,9 +102,12 @@
                     </a>
                     <div class="submenu">
                         <a th:href="@{/home-admin/agregarBanners}">Agregar Banner</a>
-                        <a th:href="@{/home-admin/listarEmpleados}">Cambiar Banner</a>
-                        <a th:href="@{/home-admin/listarClientes}">Listar Banners</a>
                     </div>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" th:href="@{/home/}" onclick="return confirm('¿Esta seguro que desea Cerrar Sesion?')" > <i class="icon material-icons md-home"></i>
+                        <span class="text">Cerrar Sesion</span>
+                    </a>
                 </li>
             </ul>
             <hr>

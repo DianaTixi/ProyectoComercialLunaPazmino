@@ -1,6 +1,7 @@
 package comerciallunapazmino.com.ComercialLunaP.controller;
 
 import java.awt.print.Pageable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -444,18 +445,46 @@ public class AdminController {
 		return "private/admin/listar-pedidos1";
 	}
 	
+	//Busqueda de Pedidos Por Fecha 
+	@RequestMapping(value="/busquedaFechaPedidos", method=RequestMethod.POST)
+	public String busquedaPorFechaPed(@RequestParam ("fechaI") String fechaI, @RequestParam ("fechaF") String fechaF, Model model) throws ParseException {
+		System.out.println("Busqueda por :" + fechaI + " - " + fechaF);
+		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date fecha1 = formato.parse(fechaI);
+		SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date fecha2 = formato.parse(fechaF);
+		System.out.println("FechaI: " + fecha1 + " Fecha F: " + fecha2);
+		List<PedidosCabeceras> listaPedidos = serPedidoC.busqueda(fecha1, fecha2);
+		model.addAttribute("listaPed", listaPedidos);
+		return "private/admin/listar-pedidos1";
+	}
+	//Busqueda de Pedidos Por Estado
+	@RequestMapping(value="/busquedaEstadoPedidos", method=RequestMethod.POST)
+	public String busquedaPorEstadoPed(@RequestParam ("estado") String estado, Model model) {
+		
+		char e = estado.charAt(0);
+		System.out.println("Busqueda por Estado :" + estado + "- " +e);
+		if (estado.equals("T")) {
+			return "redirect:/home-admin/pagePedidos" ;
+		}
+		
+		List<PedidosCabeceras> listaPedidos = serPedidoC.listarByEstado(e);
+		model.addAttribute("listaPed", listaPedidos);
+		return "private/admin/listar-pedidos1";
+	}
+	
 	//Cambiar Estado Pedido Cabecera
 	@RequestMapping(value="/editarPedidoC", method=RequestMethod.POST)
 	public String editarPedidoC(@RequestParam ("id") String id, @RequestParam ("estado") String estado) {
 		System.out.println("Id = " + id + " Nuevo Estado= " + estado);
-		
 		int id_ped = Integer.parseInt(id);
 		char estad = estado.charAt(0);
 		serPedidoC.editar(id_ped, estad);
-		
 		return "redirect:/home-admin/pagePedidos" ;
 		
 	}
+	//Metodo para agregar Observaciones
 	@RequestMapping(value="/obsPedidoC", method=RequestMethod.POST)
 	public String observacionesPedidoC(@RequestParam ("id") String id, @RequestParam ("observaciones") String observaciones) {
 		System.out.println("Id = " + id + " Observaciones= " + observaciones);
@@ -516,7 +545,7 @@ public class AdminController {
 	/////////////////// CONTROLADOR DE LA ENTIDAD DE EMPLEADOS //////////////////////////////
 	
 	// Redireccionamiento Seccion Cuentas
-	@RequestMapping(value = "/registrarEmpleados", method=RequestMethod.GET)
+	@RequestMapping(value = "/registrarEmpl", method=RequestMethod.GET)
 	public String listarEmpleados(Model model) {
 		List<Personas> lista = serPersonas.listarByRol('E');
 		model.addAttribute("listarEmpleados", lista);
@@ -553,6 +582,29 @@ public class AdminController {
 		List<Personas> lista = serPersonas.listarByRol('C');
 		model.addAttribute("listarCli", lista);
 		return "private/admin/listar-clientes";
+	}
+	
+	@GetMapping("/pageEmpleados")
+	public String listarEmpleado(Model model) {
+		findPaginatedEmpleados(1, model);
+		return "private/admin/listar-empleados";
+	}
+
+	//Lista por Paginacion 
+	@GetMapping("/pageEmpl/{pageNo}")
+	public String findPaginatedEmpleados(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize=2;
+		if (pageNo==0) {
+			pageNo=1;
+		}
+		Page<Personas> page = serPersonas.findPaginated(pageNo, pageSize);
+		List<Personas> listaEmpleados = serPersonas.listarByRol('E');
+		listaEmpleados = page.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("listarEmp", listaEmpleados);	
+		return "private/admin/listar-empleados";
 	}
 	
 	// @PostMapping("/save")

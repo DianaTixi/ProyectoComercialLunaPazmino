@@ -59,7 +59,7 @@
                     </a>
                     <div class="submenu">
                     	<a th:href="@{/home-admin/agregarProductos}">Agregar Productos</a>
-                        <a th:href="@{/home-admin/pro-img}" >Productos - Imagenes</a>
+                        <a th:href="@{/home-admin/pageImagenes}" >Productos - Imagenes</a>
                         <a th:href="@{/home-admin/pageProductos}">Listar Productos</a>
                         <a th:href="@{/home-admin/productosBloqueados}">Desbloquear Productos</a>
                         
@@ -70,7 +70,7 @@
                         <span class="text">Pedidos</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/listarPedidos}">Lista de Pedidos</a>
+                        <a th:href="@{/home-admin/pagePedidos}">Lista de Pedidos</a>
                         <!--  <a href="listar-pedidos2.html">Buscar Pedidos</a> -->
                         <a th:href="@{/home-admin/listarDetalles}">Pedidos Detalle</a>
                     </div>
@@ -80,10 +80,9 @@
                         <span class="text">Cuenta</span>
                     </a>
                     <div class="submenu">
-                        <a th:href="@{/home-admin/registrarEmpleados}">Registrar - Empleados</a>
-                        <a th:href="@{/home-admin/listarEmpleados}">Listar Empleados</a>
+                        <a th:href="@{/home-admin/registrarEmpl}">Registrar - Empleados</a>
+                        <a th:href="@{/home-admin/pageEmpleados}">Listar Empleados</a>
                         <a th:href="@{/home-admin/listarClientes}">Listar Clientes</a>
-                        <a href="page-error-404.html">Error 404</a>
                     </div>
                 </li>
 
@@ -95,6 +94,18 @@
                         <a th:href="@{/home-admin/listarMarcas}">Agregar Marca</a>
                     </div>
                 </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                    <div class="submenu">
+                        <a th:href="@{/home-admin/agregarBanners}">Agregar Banner</a>
+                    </div>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" th:href="@{/home/}" onclick="return confirm('¿Esta seguro que desea Cerrar Sesion?')" > <i class="icon material-icons md-home"></i>
+                        <span class="text">Cerrar Sesion</span>
+                    </a>
                 </li>
             </ul>
             <hr>
@@ -137,18 +148,47 @@
             </div>
 
             <div class="card mb-4">
-                <header class="card-header">
+            <header class="card-header">
                     <div class="row gx-3">
-                        <div class="col-lg-4 col-md-6 me-auto">
-                            <select class="form-select">
-							<option></option>
-							<option>Procesado</option>
-							<option>Pendiente </option>
+                    
+                        <div class="col-lg-2 col-6 col-md-3">
+                        <form th:action="@{/home-admin/busquedaFechaPedidos}" method="POST" >
+                           <label class="col-form-label col-form-label-lg">Fecha Inicial</label>
+                         	<input type="text" name="fechaI" placeholder="YYYY-MM-DD" class="form-control">
 						</select>
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                        <label class="col-form-label col-form-label-lg">Fecha Final</label>
+                         <input type="text" name="fechaF" placeholder="YYYY/MM/DD" class="form-control">
+                            
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                        <br><br>
+                            <input type="submit"  value="Buscar" class="btn btn-primary" />
+                            </form>
+                        </div>
+                        
+                        <div class="col-lg-2 col-6 col-md-3"></div>
+                        
+                        <div class="col-lg-2 col-6 col-md-3">
+                        <form th:action="@{/home-admin/busquedaEstadoPedidos}" method="POST" >
+                        <br><br>
+                            <select  name="estado" class="form-select">
+							<option>Estado</option>
+							<option value="P" >Pendiente </option>
+							<option value="E">Procesado</option>
+                            <option value="T">Todos</option>
+						</select>
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                        	<br><br>
+                            <input type="submit"  value="Buscar" class="btn btn-primary" />
+                            </form>
                         </div>
                         
                     </div>
                 </header>
+                
                 <!-- card-header end// -->
                 <div class="card-body">
                     <div class="table-responsive">
