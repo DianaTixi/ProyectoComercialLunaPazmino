@@ -17,5 +17,5 @@ public interface IPedidoCabeceraService  {
 	double TotalPedidos();
 	List<PedidosCabeceras> pedidosPorPersona(int id_per);
 	Page <PedidosCabeceras> findPaginated (int pageNo, int pageSize);
-	float Total();
+	Double TotalVentas();
 }

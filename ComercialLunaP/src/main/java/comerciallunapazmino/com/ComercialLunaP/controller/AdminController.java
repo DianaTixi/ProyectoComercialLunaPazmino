@@ -84,9 +84,9 @@ public class AdminController {
 		model.addAttribute("pedidosR", pedidos);
 		long totalOrd = serPedidoC.TotalOrdenes();
 		model.addAttribute("totalOrd", totalOrd);
-		float total = serPedidoC.Total();
+		Double total = serPedidoC.TotalVentas();
 		model.addAttribute("total", total);
-		int proVendidos = serPedidoD.TotalProductosVendidos();
+		Integer proVendidos = serPedidoD.TotalProductosVendidos();
 		model.addAttribute("proVendidos", proVendidos);
 		return "private/admin/index-admin";
 	}

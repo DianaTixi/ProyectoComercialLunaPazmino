@@ -17,6 +17,6 @@ public interface PedidoDetalleRepository extends JpaRepository<PedidosDetalles, 
 	List<PedidosDetalles> findBypedidoCabecera_Id(int id_pedC);
 
 	@Query("SELECT SUM(cantidad) FROM PedidosDetalles")
-	int selectTotalProductos();
+	Integer selectTotalProductos();
 	
 }

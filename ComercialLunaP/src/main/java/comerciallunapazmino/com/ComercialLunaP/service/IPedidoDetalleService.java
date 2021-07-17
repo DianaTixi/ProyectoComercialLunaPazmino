@@ -9,5 +9,5 @@ public interface IPedidoDetalleService {
 	List<PedidosDetalles> listar();
 	PedidosDetalles buscarPorCabecera_Id(int id_cab);
 	List <PedidosDetalles> buscarPedidoC_Id (int pedC_id);
-	int TotalProductosVendidos();
+	Integer TotalProductosVendidos();
 }

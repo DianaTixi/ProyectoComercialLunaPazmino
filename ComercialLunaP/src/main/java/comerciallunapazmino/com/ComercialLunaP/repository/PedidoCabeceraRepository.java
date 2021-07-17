@@ -20,6 +20,6 @@ public interface PedidoCabeceraRepository extends JpaRepository<PedidosCabeceras
 	//List<PedidosCabeceras> findByEstado(@Param("estado") String estado);
 	
 	@Query("SELECT SUM(total) FROM PedidosCabeceras")
-	Float selectTotals();
+	Double selectTotals();
 	
 }

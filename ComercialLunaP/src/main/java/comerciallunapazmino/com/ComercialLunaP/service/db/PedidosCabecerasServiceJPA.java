@@ -71,6 +71,9 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 	@Override
 	public long TotalOrdenes() {
 		long cont = pedC_rep.count();
+		if(cont ==0) {
+			return 0;
+		}
 		System.out.println(cont);
 		return cont;
 	}
@@ -96,8 +99,14 @@ public class PedidosCabecerasServiceJPA implements IPedidoCabeceraService {
 	}
 
 	@Override
-	public float Total() {
+	public Double TotalVentas() {
 		// TODO Auto-generated method stub
+		
+		Double total = pedC_rep.selectTotals();
+		System.out.println("Total Efectivo Ventas : " + total);
+		if (total == null ) {
+			return 0.00;
+		}
 		return pedC_rep.selectTotals();
 	}
 
