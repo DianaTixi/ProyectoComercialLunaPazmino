@@ -9,7 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import comerciallunapazmino.com.ComercialLunaP.modelo.PedidosDetalles;
 
-
 public interface PedidoDetalleRepository extends JpaRepository<PedidosDetalles, Integer> {
 
 	Optional<PedidosDetalles> findByPedidoCabecera_Id(int id_cab);
